@@ -1,0 +1,50 @@
+<p><a href="/events">&laquo; {"All Events"}</a></p>
+
+<p class="event-datetime"><strong>{"When"}:</strong><br />
+{{ start_date|events_filter_date }}{% if end_date %} - {{ end_date|events_filter_date }}{% end %}<br />
+{{ starts|events_filter_time }}{% if ends != '00:00:00' %} - {{ ends|events_filter_time }}{% end %}</p>
+
+{% if address != '' %}
+<p class="event-address"><strong>{"Where"}:</strong><br />
+{{ address }}{% if city != '' %}, {{ city }}{% end %} (<a href="#" onclick="return events_toggle_map (this)">{"show map"}</a>)<br />
+<div id="event-map" style="display: none">{! social/google/maps?address=[address]&city=[city] !}</div></p>
+{% end %}
+
+{% if contact != '' || $data->email != '' || $data->phone != '' %}
+<p class="event-contact"><strong>{"Contact"}:</strong>{% if contact != '' %}<br />{{ contact }}{% end %}
+{% if email != '' %}<br /><a href="mailto: {{ email }}">{{ email }}</a>{% end %}
+{% if phone != '' %}<br /><a href="tel: {{phone }}">{{ phone }}</a>{% end %}</p>
+{% end %}
+
+<div class="event-details">{{ details|none }}</div>
+<br />
+
+<script>
+
+var events_toggle_map_status = false;
+function events_toggle_map (link) {
+	if (! events_toggle_map_status) {
+		events_toggle_map_status = true;
+		$(link).html ('{"hide map"}');
+		$('#event-map').slideDown (function () {
+			// resize and adjust the position of the map
+			for (var m = 0; m < my_maps.length; m++) {
+				google.maps.event.trigger (my_maps[m], 'resize');
+				for (var p = 0; p < my_markers.length; p++) {
+					if (my_markers[p].map == my_maps[m]) {
+						my_maps[m].setCenter (my_markers[p].getPosition ());
+						break;
+					}
+				}
+				break;
+			}
+		});
+	} else {
+		events_toggle_map_status = false;
+		$(link).html ('{"show map"}');
+		$('#event-map').slideUp ();
+	}
+	return false;
+}
+
+</script>

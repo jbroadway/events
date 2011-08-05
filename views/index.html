@@ -1,0 +1,14 @@
+<script>
+$(function () {
+	$('#events-calendar').fullCalendar ({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		editable: false,
+		events: '/events/json'
+	});
+});
+</script>
+<div id="events-calendar"></div>
