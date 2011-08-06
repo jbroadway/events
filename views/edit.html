@@ -2,7 +2,7 @@
 <p class="autosave-notice">Auto-saved data found for this form. <a href="#" class="autosave-restore">Click here to restore.</a></p>
 {% end %}
 
-<form method="POST" id="add-form">
+<form method="POST" id="edit-form">
 <p>Event title:<br /><input type="text" name="title" size="50" value="{{ title }}" />
 <span class="notice" id="title-notice">You must enter a block title.</span></p>
 <p>Date:
@@ -124,7 +124,9 @@
 <p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone }}" /></p>
 </div>
 <p>
-	<input type="submit" value="Add Event" class="autosave-clear" />&nbsp;
-	<a href="javascript:history.go(-1)" onclick="return confirm ('Are you sure you want to cancel and lose any changes?')">Cancel</a>
+	<input type="submit" value="Save Event" class="autosave-clear" />&nbsp;
+	<input type="submit" value="Save &amp; Keep Editing" id="bgsave" />&nbsp;
+	<a href="/admin/cancel?type=Event&id={{ id }}&return={{ $_SERVER['HTTP_REFERER']|urlencode }}" onclick="return confirm ('Are you sure you want to cancel and lose any changes?')">Cancel</a>&nbsp;
+	<span id="bgsave-status"></span>
 </p>
 </form>
