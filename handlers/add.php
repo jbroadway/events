@@ -23,6 +23,9 @@ if ($f->submit ()) {
 	echo 'Error Message: ' . $e->error;
 } else {
 	$e = new Event;
+	$e->start_date = gmdate ('Y-m-d');
+	$e->starts = '18:00:00';
+	$e->ends = '20:00:00';
 
 	$e->failed = $f->failed;
 	$e = $f->merge_values ($e);

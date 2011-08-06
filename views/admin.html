@@ -1,0 +1,34 @@
+<p><a href="/events/add">{"Add Event"}</a></p>
+
+{% if offset > 0 %}
+<p class="previous"><a href="/events/admin?offset={{ prev }}">&laquo; {"Previous"}</a></p>
+{% end %}
+
+<p>
+<table width="100%">
+	<tr>
+		<th width="30%">{"Title"}</th>
+		<th width="37%">{"Date"}</th>
+		<th width="18%">{"Time"}</th>
+		<th width="15%">&nbsp;</th>
+	</tr>
+{% foreach events %}
+	<tr>
+		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|events_filter_title }}" target="_blank">{{ loop_value->title }}</a></td>
+		<td>{{ loop_value->start_date|events_filter_date }}{% if loop_value->end_date %} - {{ loop_value->end_date|events_filter_date }}{% end %}</td>
+		<td>{{ loop_value->starts|events_filter_time }}{% if loop_value->ends != '00:00:00' %} - {{ loop_value->ends|events_filter_time }}{% end %}</td>
+		<td>
+			{% if loop_value->locked %}
+			{"Editing Locked"}
+			{% else %}
+			<a href="/events/edit?id={{ loop_value->id }}">{"Edit"}</a> | <a href="/events/delete?id={{ loop_value->id }}" onclick="return confirm ('{"Are you sure you want to delete this event?"}');">{"Delete"}</a>
+			{% end %}
+		</td>
+	</tr>
+{% end %}
+</table>
+</p>
+
+{% if more %}
+<p class="next"><a href="/events/admin?offset={{ next }}">{"Next"} &raquo;</a></p>
+{% end %}
