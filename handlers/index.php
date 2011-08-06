@@ -11,6 +11,7 @@ if (count ($this->params) > 0) {
 	}
 
 	$page->title = $e->title;
+	$e->details = $tpl->run_includes ($e->details);
 	echo $tpl->render ('events/event', $e->orig ());
 } else {
 	$page->title = 'Events';

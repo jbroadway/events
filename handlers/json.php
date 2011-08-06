@@ -14,13 +14,19 @@ $res = Event::query ()
 	->fetch_orig ();
 
 foreach ($res as $row) {
-	$events[] = array (
+	$e = array (
 		'title' => $row->title,
 		'start' => $row->start_date . ' ' . $row->starts,
-		'end' => $row->end_date . ' ' . $row->ends,
 		'allDay' => false,
-		'url' => '/events/' . $row->id . '/' . events_filter_title ($row->title)
+		'url' => '/events/' . $row->id . '/' . events_filter_title ($row->title),
+		'backgroundColor' => '#def',
+		'borderColor' => '#cde',
+		'textColor' => '#000'
 	);
+	if (! empty ($row->end_date)) {
+		$e['end'] = $row->end_date . ' ' . $row->ends;
+	}
+	$events[] = $e;
 }
 
 header ('Content-Type: application/json');
