@@ -1,0 +1,130 @@
+{% if isset ($_COOKIE['autosave-eventsadd']) %}
+<p class="autosave-notice">Auto-saved data found for this form. <a href="#" class="autosave-restore">Click here to restore.</a></p>
+{% end %}
+
+<form method="POST" id="add-form">
+<p>Event title:<br /><input type="text" name="title" size="50" value="{{ title }}" />
+<span class="notice" id="title-notice">You must enter a block title.</span></p>
+<p>Date:
+<input type="text" name="start_date" class="date" size="24" value="{{ start_date }}" />
+&nbsp; Ends: <input type="text" name="end_date" class="date" size="24" value="{{ end_date }}" />
+<br />
+<span class="notice" id="start_date-notice">You must enter a date.</span></p>
+<p>Time:
+<select name="starts">
+	<option value="00:00:00"{% if starts == '00:00:00' %} selected{% end %}>12:00am</option>
+	<option value="00:30:00"{% if starts == '00:30:00' %} selected{% end %}>12:30am</option>
+	<option value="01:00:00"{% if starts == '01:00:00' %} selected{% end %}>1:00am</option>
+	<option value="01:30:00"{% if starts == '01:30:00' %} selected{% end %}>1:30am</option>
+	<option value="02:00:00"{% if starts == '02:00:00' %} selected{% end %}>2:00am</option>
+	<option value="02:30:00"{% if starts == '02:30:00' %} selected{% end %}>2:30am</option>
+	<option value="03:00:00"{% if starts == '03:00:00' %} selected{% end %}>3:00am</option>
+	<option value="03:30:00"{% if starts == '03:30:00' %} selected{% end %}>3:30am</option>
+	<option value="04:00:00"{% if starts == '04:00:00' %} selected{% end %}>4:00am</option>
+	<option value="04:30:00"{% if starts == '04:30:00' %} selected{% end %}>4:30am</option>
+	<option value="05:00:00"{% if starts == '05:00:00' %} selected{% end %}>5:00am</option>
+	<option value="05:30:00"{% if starts == '05:30:00' %} selected{% end %}>5:30am</option>
+	<option value="06:00:00"{% if starts == '06:00:00' %} selected{% end %}>6:00am</option>
+	<option value="06:30:00"{% if starts == '06:30:00' %} selected{% end %}>6:30am</option>
+	<option value="07:00:00"{% if starts == '07:00:00' %} selected{% end %}>7:00am</option>
+	<option value="07:30:00"{% if starts == '07:30:00' %} selected{% end %}>7:30am</option>
+	<option value="08:00:00"{% if starts == '08:00:00' %} selected{% end %}>8:00am</option>
+	<option value="08:30:00"{% if starts == '08:30:00' %} selected{% end %}>8:30am</option>
+	<option value="09:00:00"{% if starts == '09:00:00' %} selected{% end %}>9:00am</option>
+	<option value="09:30:00"{% if starts == '09:30:00' %} selected{% end %}>9:30am</option>
+	<option value="10:00:00"{% if starts == '10:00:00' %} selected{% end %}>10:00am</option>
+	<option value="10:30:00"{% if starts == '10:30:00' %} selected{% end %}>10:30am</option>
+	<option value="11:00:00"{% if starts == '11:00:00' %} selected{% end %}>11:00am</option>
+	<option value="11:30:00"{% if starts == '11:30:00' %} selected{% end %}>11:30am</option>
+	<option value="12:00:00"{% if starts == '12:00:00' %} selected{% end %}>12:00pm</option>
+	<option value="12:30:00"{% if starts == '12:30:00' %} selected{% end %}>12:30pm</option>
+	<option value="13:00:00"{% if starts == '13:00:00' %} selected{% end %}>1:00pm</option>
+	<option value="13:30:00"{% if starts == '13:30:00' %} selected{% end %}>1:30pm</option>
+	<option value="14:00:00"{% if starts == '14:00:00' %} selected{% end %}>2:00pm</option>
+	<option value="14:30:00"{% if starts == '14:30:00' %} selected{% end %}>2:30pm</option>
+	<option value="15:00:00"{% if starts == '15:00:00' %} selected{% end %}>3:00pm</option>
+	<option value="15:30:00"{% if starts == '15:30:00' %} selected{% end %}>3:30pm</option>
+	<option value="16:00:00"{% if starts == '16:00:00' %} selected{% end %}>4:00pm</option>
+	<option value="16:30:00"{% if starts == '16:30:00' %} selected{% end %}>4:30pm</option>
+	<option value="17:00:00"{% if starts == '17:00:00' %} selected{% end %}>5:00pm</option>
+	<option value="17:30:00"{% if starts == '17:30:00' %} selected{% end %}>5:30pm</option>
+	<option value="18:00:00"{% if starts == '18:00:00' %} selected{% end %}>6:00pm</option>
+	<option value="18:30:00"{% if starts == '18:30:00' %} selected{% end %}>6:30pm</option>
+	<option value="19:00:00"{% if starts == '19:00:00' %} selected{% end %}>7:00pm</option>
+	<option value="19:30:00"{% if starts == '19:30:00' %} selected{% end %}>7:30pm</option>
+	<option value="20:00:00"{% if starts == '20:00:00' %} selected{% end %}>8:00pm</option>
+	<option value="20:30:00"{% if starts == '20:30:00' %} selected{% end %}>8:30pm</option>
+	<option value="21:00:00"{% if starts == '21:00:00' %} selected{% end %}>9:00pm</option>
+	<option value="21:30:00"{% if starts == '21:30:00' %} selected{% end %}>9:30pm</option>
+	<option value="22:00:00"{% if starts == '22:00:00' %} selected{% end %}>10:00pm</option>
+	<option value="22:30:00"{% if starts == '22:30:00' %} selected{% end %}>10:30pm</option>
+	<option value="23:00:00"{% if starts == '23:00:00' %} selected{% end %}>11:00pm</option>
+	<option value="23:30:00"{% if starts == '23:30:00' %} selected{% end %}>11:30pm</option>
+</select>
+&nbsp; Ends:
+<select name="ends">
+	<option value="00:00:00"{% if ends == '00:00:00' %} selected{% end %}>12:00am</option>
+	<option value="00:30:00"{% if ends == '00:30:00' %} selected{% end %}>12:30am</option>
+	<option value="01:00:00"{% if ends == '01:00:00' %} selected{% end %}>1:00am</option>
+	<option value="01:30:00"{% if ends == '01:30:00' %} selected{% end %}>1:30am</option>
+	<option value="02:00:00"{% if ends == '02:00:00' %} selected{% end %}>2:00am</option>
+	<option value="02:30:00"{% if ends == '02:30:00' %} selected{% end %}>2:30am</option>
+	<option value="03:00:00"{% if ends == '03:00:00' %} selected{% end %}>3:00am</option>
+	<option value="03:30:00"{% if ends == '03:30:00' %} selected{% end %}>3:30am</option>
+	<option value="04:00:00"{% if ends == '04:00:00' %} selected{% end %}>4:00am</option>
+	<option value="04:30:00"{% if ends == '04:30:00' %} selected{% end %}>4:30am</option>
+	<option value="05:00:00"{% if ends == '05:00:00' %} selected{% end %}>5:00am</option>
+	<option value="05:30:00"{% if ends == '05:30:00' %} selected{% end %}>5:30am</option>
+	<option value="06:00:00"{% if ends == '06:00:00' %} selected{% end %}>6:00am</option>
+	<option value="06:30:00"{% if ends == '06:30:00' %} selected{% end %}>6:30am</option>
+	<option value="07:00:00"{% if ends == '07:00:00' %} selected{% end %}>7:00am</option>
+	<option value="07:30:00"{% if ends == '07:30:00' %} selected{% end %}>7:30am</option>
+	<option value="08:00:00"{% if ends == '08:00:00' %} selected{% end %}>8:00am</option>
+	<option value="08:30:00"{% if ends == '08:30:00' %} selected{% end %}>8:30am</option>
+	<option value="09:00:00"{% if ends == '09:00:00' %} selected{% end %}>9:00am</option>
+	<option value="09:30:00"{% if ends == '09:30:00' %} selected{% end %}>9:30am</option>
+	<option value="10:00:00"{% if ends == '10:00:00' %} selected{% end %}>10:00am</option>
+	<option value="10:30:00"{% if ends == '10:30:00' %} selected{% end %}>10:30am</option>
+	<option value="11:00:00"{% if ends == '11:00:00' %} selected{% end %}>11:00am</option>
+	<option value="11:30:00"{% if ends == '11:30:00' %} selected{% end %}>11:30am</option>
+	<option value="12:00:00"{% if ends == '12:00:00' %} selected{% end %}>12:00pm</option>
+	<option value="12:30:00"{% if ends == '12:30:00' %} selected{% end %}>12:30pm</option>
+	<option value="13:00:00"{% if ends == '13:00:00' %} selected{% end %}>1:00pm</option>
+	<option value="13:30:00"{% if ends == '13:30:00' %} selected{% end %}>1:30pm</option>
+	<option value="14:00:00"{% if ends == '14:00:00' %} selected{% end %}>2:00pm</option>
+	<option value="14:30:00"{% if ends == '14:30:00' %} selected{% end %}>2:30pm</option>
+	<option value="15:00:00"{% if ends == '15:00:00' %} selected{% end %}>3:00pm</option>
+	<option value="15:30:00"{% if ends == '15:30:00' %} selected{% end %}>3:30pm</option>
+	<option value="16:00:00"{% if ends == '16:00:00' %} selected{% end %}>4:00pm</option>
+	<option value="16:30:00"{% if ends == '16:30:00' %} selected{% end %}>4:30pm</option>
+	<option value="17:00:00"{% if ends == '17:00:00' %} selected{% end %}>5:00pm</option>
+	<option value="17:30:00"{% if ends == '17:30:00' %} selected{% end %}>5:30pm</option>
+	<option value="18:00:00"{% if ends == '18:00:00' %} selected{% end %}>6:00pm</option>
+	<option value="18:30:00"{% if ends == '18:30:00' %} selected{% end %}>6:30pm</option>
+	<option value="19:00:00"{% if ends == '19:00:00' %} selected{% end %}>7:00pm</option>
+	<option value="19:30:00"{% if ends == '19:30:00' %} selected{% end %}>7:30pm</option>
+	<option value="20:00:00"{% if ends == '20:00:00' %} selected{% end %}>8:00pm</option>
+	<option value="20:30:00"{% if ends == '20:30:00' %} selected{% end %}>8:30pm</option>
+	<option value="21:00:00"{% if ends == '21:00:00' %} selected{% end %}>9:00pm</option>
+	<option value="21:30:00"{% if ends == '21:30:00' %} selected{% end %}>9:30pm</option>
+	<option value="22:00:00"{% if ends == '22:00:00' %} selected{% end %}>10:00pm</option>
+	<option value="22:30:00"{% if ends == '22:30:00' %} selected{% end %}>10:30pm</option>
+	<option value="23:00:00"{% if ends == '23:00:00' %} selected{% end %}>11:00pm</option>
+	<option value="23:30:00"{% if ends == '23:30:00' %} selected{% end %}>11:30pm</option>
+</select></p>
+<p>Details: <span class="notice" id="details-notice">You must enter event details.</span><br />
+<textarea name="details" id="webpage-body" cols="90" rows="28">{{ details }}</textarea></p>
+
+<h4><a href="#" onclick="return webpage_show_extra_options (this)" class="extra-options-link"><span class="arrow arrow-off"></span>{"Extra Options"}</a></h4>
+<div id="extra-options">
+<p>Address:<br /><input type="text" name="address" size="50" value="{{ address }}" /></p>
+<p>City:<br /><input type="text" name="city" size="50" value="{{ city }}" /></p>
+<p>Contact:<br /><input type="text" name="contact" size="50" value="{{ contact }}" /></p>
+<p>Email:<br /><input type="text" name="email" size="50" value="{{ email }}" /></p>
+<p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone }}" /></p>
+</div>
+<p>
+	<input type="submit" value="Add Event" class="autosave-clear" />&nbsp;
+	<a href="javascript:history.go(-1)" onclick="return confirm ('Are you sure you want to cancel and lose any changes?')">Cancel</a>
+</p>
+</form>
