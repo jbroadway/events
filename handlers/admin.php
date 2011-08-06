@@ -14,7 +14,7 @@ $_GET['offset'] = (isset ($_GET['offset'])) ? $_GET['offset'] : 0;
 $lock = new Lock ();
 
 $events = Event::query ('id, title, start_date, end_date, starts, ends')
-	->order ('id asc')
+	->order ('start_date desc')
 	->fetch_orig ($limit, $_GET['offset']);
 $count = Event::query ()->count ();
 
