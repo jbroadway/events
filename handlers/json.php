@@ -2,7 +2,7 @@
 
 require_once ('apps/events/lib/Filters.php');
 
-$page->template = false;
+$page->layout = false;
 
 $start = gmdate ('Y-m-d H:i:s', $_GET['start']);
 $end = gmdate ('Y-m-d H:i:s', $_GET['end']);

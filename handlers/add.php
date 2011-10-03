@@ -7,6 +7,7 @@ if (! User::require_admin ()) {
 }
 
 $f = new Form ('post', 'events/add');
+$f->verify_csrf = false;
 if ($f->submit ()) {
 	$e = new Event ($_POST);
 	$e->put ();

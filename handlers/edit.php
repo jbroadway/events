@@ -18,6 +18,7 @@ if ($lock->exists ()) {
 $e = new Event ($_GET['id']);
 
 $f = new Form ('post', 'events/edit');
+$f->verify_csrf = false;
 if ($f->submit ()) {
 	$e->title = $_POST['title'];
 	$e->details = $_POST['details'];
