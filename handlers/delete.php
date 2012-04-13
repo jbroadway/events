@@ -15,6 +15,10 @@ if ($lock->exists ()) {
 
 $e = new Event ($_GET['id']);
 
+// for hooks
+require_once ('apps/events/lib/Filters.php');
+$_GET['page'] = 'events/' . $e->id . '/' . events_filter_title ($e->title);
+
 if (! $e->remove ()) {
 	$page->title = 'An Error Occurred';
 	echo 'Error Message: ' . $e->error;
