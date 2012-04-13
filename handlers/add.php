@@ -14,7 +14,12 @@ if ($f->submit ()) {
 	Versions::add ($e);
 	if (! $e->error) {
 		$this->add_notification ('Event added.');
+
+		require_once ('apps/events/lib/Filters.php');
+		$_POST['page'] = 'events/' . $_POST['id'] . '/' . events_filter_title ($_POST['title']);
+		$_POST['body'] = $_POST['details'];
 		$this->hook ('events/add', $_POST);
+
 		if (isset ($_GET['return'])) {
 			$this->redirect ($_GET['return']);
 		}

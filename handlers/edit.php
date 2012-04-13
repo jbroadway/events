@@ -29,7 +29,12 @@ if ($f->submit ()) {
 		$this->add_notification ('Event saved.');
 		$_POST['id'] = $_GET['id'];
 		$lock->remove ();
+
+		require_once ('apps/events/lib/Filters.php');
+		$_POST['page'] = 'events/' . $_POST['id'] . '/' . events_filter_title ($_POST['title']);
+		$_POST['body'] = $_POST['details'];
 		$this->hook ('events/edit', $_POST);
+
 		if (isset ($_GET['return'])) {
 			$this->redirect ($_GET['return']);
 		}
