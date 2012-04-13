@@ -16,7 +16,7 @@ if ($f->submit ()) {
 		$this->add_notification ('Event added.');
 
 		require_once ('apps/events/lib/Filters.php');
-		$_POST['page'] = 'events/' . $_POST['id'] . '/' . events_filter_title ($_POST['title']);
+		$_POST['page'] = 'events/' . $e->id . '/' . events_filter_title ($_POST['title']);
 		$_POST['body'] = $_POST['details'];
 		$this->hook ('events/add', $_POST);
 
