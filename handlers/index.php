@@ -14,7 +14,9 @@ if (count ($this->params) > 0) {
 	$e->details = $tpl->run_includes ($e->details);
 	echo $tpl->render ('events/event', $e->orig ());
 } else {
-	$page->title = 'Events';
+	if (! $this->internal) {
+		$page->title = i18n_get ('Events');
+	}
 	$page->add_script ('<script src="/apps/events/js/fullcalendar/fullcalendar.min.js"></script>');
 	$page->add_script ('<link rel="stylesheet" type="text/css" href="/apps/events/js/fullcalendar/fullcalendar.css" />');
 	echo $tpl->render ('events/index');
