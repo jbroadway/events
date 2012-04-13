@@ -1,5 +1,9 @@
 <?php
 
+function events_filter_shortdate ($d) {
+	return date ('F j', strtotime ($d));
+}
+
 function events_filter_date ($d) {
 	return date ('l, F jS', strtotime ($d));
 }
