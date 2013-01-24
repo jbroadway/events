@@ -36,8 +36,8 @@ if ($f->submit ()) {
 	$e->failed = $f->failed;
 	$e = $f->merge_values ($e);
 	$page->title = 'Add Event';
-	$page->head = $tpl->render ('events/add/head', $e)
-				. $tpl->render ('admin/wysiwyg');
+	$this->run ('admin/util/wysiwyg');
+	echo $tpl->render ('events/add/head', $e);
 	echo $tpl->render ('events/add', $e);
 }
 
