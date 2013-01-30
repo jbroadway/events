@@ -1,5 +1,9 @@
 ; <?php /*
 
+[events/index]
+
+label = "Event Calendar"
+
 [events/sidebar]
 
 label = "Event Listings"
