@@ -1,4 +1,12 @@
-<p><a href="/events">&laquo; {"All Events"}</a></p>
+<p>
+	<a href="/events">&laquo; {"All Events"}</a>
+	{% if User::is_valid () && User::is ('admin') %}
+	&nbsp;|&nbsp;
+	<a href="/events/edit?id={{id}}">{"Edit Event"}</a>
+	&nbsp;|&nbsp;
+	<a href="/events/delete" data-id="{{id}}" onclick="return $.confirm_and_post (this, '{"Are you sure you want to delete this event?"}');">{"Delete Event"}</a>
+	{% end %}
+</p>
 
 <p class="event-datetime"><strong>{"When"}:</strong><br />
 {{ start_date|events_filter_date }}{% if end_date %} - {{ end_date|events_filter_date }}{% end %}<br />

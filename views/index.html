@@ -11,4 +11,7 @@ $(function () {
 	});
 });
 </script>
+{% if User::is_valid () && User::is ('admin') %}
+<p><a href="/events/add">{"Add Event"}</a></p>
+{% end %}
 <div id="events-calendar"></div>

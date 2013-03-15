@@ -6,18 +6,18 @@ if (! User::require_admin ()) {
 	$this->redirect ('/admin');
 }
 
-$lock = new Lock ('Event', $_GET['id']);
+$lock = new Lock ('Event', $_POST['id']);
 if ($lock->exists ()) {
 	$page->title = i18n_get ('Editing Locked');
 	echo $tpl->render ('admin/locked', $lock->info ());
 	return;
 }
 
-$e = new Event ($_GET['id']);
+$e = new Event ($_POST['id']);
 
 // for hooks
 require_once ('apps/events/lib/Filters.php');
-$_GET['page'] = 'events/' . $e->id . '/' . events_filter_title ($e->title);
+$_POST['page'] = 'events/' . $e->id . '/' . events_filter_title ($e->title);
 
 if (! $e->remove ()) {
 	$page->title = 'An Error Occurred';
@@ -25,13 +25,13 @@ if (! $e->remove ()) {
 	return;
 }
 
-$this->hook ('events/delete', $_GET);
+$this->hook ('events/delete', $_POST);
 
 $this->add_notification ('Event deleted.');
-if (! isset ($_GET['return'])) {
+if (! isset ($_POST['return'])) {
 	$this->redirect ('/events/admin');
 } else {
-	$this->redirect ($_GET['return']);
+	$this->redirect ($_POST['return']);
 }
 
 ?>
