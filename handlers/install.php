@@ -10,15 +10,15 @@ if (! User::require_admin ()) {
 $cur = $this->installed ('events', $appconf['Admin']['version']);
 
 if ($cur === true) {
-	$page->title = 'Already installed';
-	echo '<p><a href="/">Home</a></p>';
+	$page->title = __ ('Already installed');
+	echo '<p><a href="/events/admin">' . __ ('Continue') . '</a></p>';
 	return;
 } elseif ($cur !== false) {
 	header ('Location: /' . $appconf['Admin']['upgrade']);
 	exit;
 }
 
-$page->title = 'Installing app: events';
+$page->title = __ ('Installing App') . ': ' . __ ('Events');
 
 if (ELEFANT_VERSION < '1.1.0') {
 	$driver = conf ('Database', 'driver');
@@ -30,20 +30,20 @@ if (ELEFANT_VERSION < '1.1.0') {
 $error = false;
 $sqldata = sql_split (file_get_contents ('apps/events/conf/install_' . $driver . '.sql'));
 foreach ($sqldata as $sql) {
-	if (! db_execute ($sql)) {
-		$error = db_error ();
-		echo '<p class="notice">Error: ' . db_error () . '</p>';
+	if (! DB::execute ($sql)) {
+		$error = DB::error ();
+		echo '<p class="notice">' . __ ('Error') . ': ' . DB::error () . '</p>';
 		break;
 	}
 }
 
 if ($error) {
-	echo '<p class="notice">Error: ' . $error . '</p>';
-	echo '<p>Install failed.</p>';
+	echo '<p class="notice">' . __ ('Error') . ': ' . $error . '</p>';
+	echo '<p>' . __ ('Install failed.') . '</p>';
 	return;
 }
 
-echo '<p>Done.</p>';
+echo '<p><a href="/events/admin">' . __ ('Done.') . '</a></p>';
 
 $this->mark_installed ('events', $appconf['Admin']['version']);
 

@@ -12,6 +12,5 @@ You can see your calendar at `/events` on your website.
 
 To do:
 
-* RSS output
 * iCalendar output
 * Social buttons

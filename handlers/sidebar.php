@@ -12,10 +12,11 @@ if (! isset ($data['details']) || ($data['details'] !== 'no' && $data['details']
 	$data['details'] = 'no';
 }
 
-$start = gmdate ('Y-m-d 00:00:00');
+$start = gmdate ('Y-m-d');
 
 $data['events'] = Event::query ()
 	->where ('start_date >= "' . $start . '"')
+	->order ('start_date', 'asc')
 	->fetch_orig ($data['limit']);
 
 if ($data['details'] === 'yes') {
