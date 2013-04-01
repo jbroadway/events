@@ -15,12 +15,14 @@ if (count ($this->params) > 0) {
 		return;
 	}
 
+	$page->id = 'events';
 	$page->title = $e->title;
 	$page->layout = $appconf['Events']['event_layout'];
 	$e->details = $tpl->run_includes ($e->details);
 	echo $tpl->render ('events/event', $e->orig ());
 } else {
 	if (! $this->internal) {
+		$page->id = 'events';
 		$page->title = __ ($appconf['Events']['title']);
 		$page->layout = $appconf['Events']['layout'];
 	}
