@@ -18,10 +18,10 @@
 	</tr>
 {% foreach events %}
 	<tr>
-		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|events_filter_title }}" target="_blank">{{ loop_value->title }}</a></td>
+		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}" target="_blank">{{ loop_value->title }}</a></td>
 		<td>{{ loop_value->start_date|events_filter_date }}{% if loop_value->end_date %} - {{ loop_value->end_date|events_filter_date }}{% end %}</td>
 		<td>{{ loop_value->starts|events_filter_time }}{% if loop_value->ends != '00:00:00' %} - {{ loop_value->ends|events_filter_time }}{% end %}</td>
-		<td>
+		<td style="text-align: right">
 			{% if loop_value->locked %}
 			{"Editing Locked"}
 			{% else %}

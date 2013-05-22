@@ -38,8 +38,7 @@ if ($f->submit ()) {
 		$_POST['id'] = $_GET['id'];
 		$lock->remove ();
 
-		require_once ('apps/events/lib/Filters.php');
-		$_POST['page'] = 'events/' . $_POST['id'] . '/' . events_filter_title ($_POST['title']);
+		$_POST['page'] = 'events/' . $_POST['id'] . '/' . URLify::filter ($_POST['title']);
 		$_POST['body'] = $_POST['details'];
 		$this->hook ('events/edit', $_POST);
 

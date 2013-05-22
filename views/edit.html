@@ -3,11 +3,11 @@
 <p class="autosave-notice">Auto-saved data found for this form. <a href="#" class="autosave-restore">Click here to restore.</a></p>
 
 <form method="POST" id="edit-form">
-<p>Event title:<br /><input type="text" name="title" size="50" value="{{ title }}" />
-<span class="notice" id="title-notice">You must enter a block title.</span></p>
+<p>Event title:<br /><input type="text" name="title" size="50" value="{{ title|quotes }}" />
+<span class="notice" id="title-notice">You must enter an event title.</span></p>
 <p>Date:
-<input type="text" name="start_date" class="date" size="24" value="{{ start_date }}" />
-&nbsp; Ends: <input type="text" name="end_date" class="date" size="24" value="{{ end_date }}" />
+<input type="text" name="start_date" class="date" size="24" value="{{ start_date|quotes }}" />
+&nbsp; Ends: <input type="text" name="end_date" class="date" size="24" value="{{ end_date|quotes }}" />
 <br />
 <span class="notice" id="start_date-notice">You must enter a date.</span></p>
 <p>Time:
@@ -117,11 +117,11 @@
 
 <h4><a href="#" onclick="return webpage_show_extra_options (this)" class="extra-options-link"><span class="arrow arrow-off"></span>{"Extra Options"}</a></h4>
 <div id="extra-options">
-<p>Address:<br /><input type="text" name="address" size="50" value="{{ address }}" /></p>
-<p>City:<br /><input type="text" name="city" size="50" value="{{ city }}" /></p>
-<p>Contact:<br /><input type="text" name="contact" size="50" value="{{ contact }}" /></p>
-<p>Email:<br /><input type="text" name="email" size="50" value="{{ email }}" /></p>
-<p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone }}" /></p>
+<p>Address:<br /><input type="text" name="address" size="50" value="{{ address|quotes }}" /></p>
+<p>City:<br /><input type="text" name="city" size="50" value="{{ city|quotes }}" /></p>
+<p>Contact:<br /><input type="text" name="contact" size="50" value="{{ contact|quotes }}" /></p>
+<p>Email:<br /><input type="text" name="email" size="50" value="{{ email|quotes }}" /></p>
+<p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone|quotes }}" /></p>
 </div>
 <p>
 	<input type="submit" value="Save Event" class="autosave-clear" />&nbsp;

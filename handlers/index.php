@@ -26,8 +26,8 @@ if (count ($this->params) > 0) {
 		$page->title = __ ($appconf['Events']['title']);
 		$page->layout = $appconf['Events']['layout'];
 	}
-	$page->add_script ('<script src="/apps/events/js/fullcalendar/fullcalendar.min.js"></script>');
-	$page->add_script ('<link rel="stylesheet" type="text/css" href="/apps/events/js/fullcalendar/fullcalendar.css" />');
+	$page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
+	$page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
 	echo $tpl->render ('events/index');
 }
 

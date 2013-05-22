@@ -1,5 +1,5 @@
 <ul>
 {% foreach events %}
-	<li><a href="/events/{{ loop_value->id }}/{{ loop_value->title|events_filter_title }}">{{ loop_value->start_date|events_filter_shortdate }} - {{ loop_value->title }}</a></li>
+	<li><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->start_date|events_filter_shortdate }} - {{ loop_value->title }}</a></li>
 {% end %}
 </ul>

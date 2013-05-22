@@ -1,7 +1,5 @@
 <?php
 
-require_once ('apps/events/lib/Filters.php');
-
 $page->layout = false;
 
 $start = gmdate ('Y-m-d H:i:s', $_GET['start']);
@@ -18,7 +16,7 @@ foreach ($res as $row) {
 		'title' => $row->title,
 		'start' => $row->start_date . ' ' . $row->starts,
 		'allDay' => false,
-		'url' => '/events/' . $row->id . '/' . events_filter_title ($row->title),
+		'url' => '/events/' . $row->id . '/' . URLify::filter ($row->title),
 		'backgroundColor' => '#def',
 		'borderColor' => '#cde',
 		'textColor' => '#000'
