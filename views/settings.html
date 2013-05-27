@@ -1,0 +1,34 @@
+<div class="form">
+
+<form method="post" id="{{_form}}">
+
+<p>{"Events page title"}:<br />
+<input type="text" name="title" size="40" value="{{ title|quotes }}" />
+<span class="notice" id="title-notice">{"You must enter an events page title."}</span></p>
+
+<p>{"Calendar page layout"}:<br />
+<select name="layout">
+{% foreach layouts %}
+	<option value="{{ loop_value }}"{% if loop_value == $data->layout %} selected{% end %}>{{ loop_value|ucfirst }}</option>
+{% end %}
+</select></p>
+
+<p>{"Event page layout"}:<br />
+<select name="event_layout">
+{% foreach layouts %}
+	<option value="{{ loop_value }}"{% if loop_value == $data->event_layout %} selected{% end %}>{{ loop_value|ucfirst }}</option>
+{% end %}
+</select></p>
+
+<p>{"Google Calendar XML feed (optional)"}:<br />
+<input type="text" name="gcal_link" size="40" value="{{ gcal_link|quotes }}" /></p>
+
+<p>
+	<input type="submit" value="{"Save Settings"}" />
+	&nbsp;
+	<a href="/events/admin" onclick="return confirm ('{"Are you sure you want to cancel and lose any changes?"}')">{"Cancel"}</a>
+</p>
+
+</form>
+
+</div>
