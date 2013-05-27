@@ -7,7 +7,17 @@ $(function () {
 			right: 'month,basicWeek'
 		},
 		editable: false,
+		{% if gcal_link %}
+		eventSources: [
+			'/events/json',
+			{
+				url: '{{gcal_link}}',
+				className: 'gcal-event'
+			}
+		]
+		{% else %}
 		events: '/events/json'
+		{% end %}
 	});
 });
 </script>

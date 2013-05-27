@@ -14,6 +14,13 @@ layout = default
 
 event_layout = default
 
+; Google Calendar link. Must be the XML feed of a public
+; calendar. For more information about changing your
+; calendar settings, see:
+; http://arshaw.com/fullcalendar/docs/google_calendar/
+
+gcal_link = ""
+
 ; Whether to include this app in the list of pages
 ; available to the Tools > Navigation tree.
 

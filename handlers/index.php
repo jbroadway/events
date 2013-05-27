@@ -28,7 +28,15 @@ if (count ($this->params) > 0) {
 	}
 	$page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
 	$page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
-	echo $tpl->render ('events/index');
+	if (strlen ($appconf['Events']['gcal_link']) > 0) {
+		$page->add_script ('/apps/events/js/fullcalendar/gcal.js');
+	}
+	echo $tpl->render (
+		'events/index',
+		array (
+			'gcal_link' => $appconf['Events']['gcal_link']
+		)
+	);
 }
 
 ?>
