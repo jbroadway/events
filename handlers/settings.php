@@ -22,17 +22,16 @@ $form->data = array (
 );
 
 echo $form->handle (function ($form) {
-	if (! Ini::write (
-		array (
-			'Events' => array (
-				'title' => $_POST['title'],
-				'layout' => $_POST['layout'],
-				'event_layout' => $_POST['event_layout'],
-				'gcal_link' => $_POST['gcal_link']
-			)
-		),
-		'conf/app.events.' . ELEFANT_ENV . '.php'
-	)) {
+	$settings = Appconf::merge ('events', array (
+		'Events' => array (
+			'title' => $_POST['title'],
+			'layout' => $_POST['layout'],
+			'event_layout' => $_POST['event_layout'],
+			'gcal_link' => $_POST['gcal_link']
+		)
+	));
+
+	if (! Ini::write ($settings, 'conf/app.events.' . ELEFANT_ENV . '.php')) {
 		printf ('<p>%s</p>', __ ('Unable to save changes. Check your folder permissions and try again.'));
 		return;
 	}
