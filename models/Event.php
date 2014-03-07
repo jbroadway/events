@@ -32,6 +32,30 @@ class Event extends Model {
 		}
 		return $urls;
 	}
+
+	/**
+	 * Generate a list of events for the search app,
+	 * and add them directly via `Search::add()`.
+	 */
+	public static function search () {
+		$events = self::query ()
+			->fetch_orig ();
+		
+		foreach ($events as $i => $event) {
+			$url = 'events/' . $event->id . '/' . URLify::filter ($event->title);
+			if (! Search::add (
+				$url,
+				array (
+					'title' => $event->title,
+					'text' => $event->details,
+					'url' => '/' . $url
+				)
+			)) {
+				return array (false, $i);
+			}
+		}
+		return array (true, count ($events));
+	}
 }
 
 ?>

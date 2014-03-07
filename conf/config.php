@@ -34,5 +34,6 @@ install = events/install
 upgrade = events/upgrade
 version = 0.9-beta
 sitemap = "Event::sitemap"
+search = "Event::search"
 
 ; */ ?>
