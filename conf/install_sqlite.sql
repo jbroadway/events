@@ -1,4 +1,4 @@
-create table event (
+create table #prefix#event (
 	id integer primary key,
 	title char(48) not null,
 	start_date date not null,
@@ -13,4 +13,4 @@ create table event (
 	phone char(48) not null
 );
 
-create index event_date on event (start_date, starts, end_date);
+create index #prefix#event_date on #prefix#event (start_date, starts, end_date);

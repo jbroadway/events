@@ -17,6 +17,8 @@
  * phone
  */
 class Event extends Model {
+	public $table = '#prefix#event';
+
 	/**
 	 * Generate a list of pages for the sitemaps app.
 	 */

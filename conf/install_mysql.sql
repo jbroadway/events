@@ -1,4 +1,4 @@
-create table event (
+create table #prefix#event (
 	id int not null auto_increment primary key,
 	title char(48) not null,
 	start_date date not null,
