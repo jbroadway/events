@@ -20,6 +20,27 @@ class Event extends Model {
 	public $table = '#prefix#event';
 
 	/**
+	 * Return the number of available registrations for the current event.
+	 * Takes the registration reservations into account.
+	 */
+	public function available () {
+		if ($this->data['available'] == 0) {
+			return $this->data['available'];
+		}
+
+		$num = DB::single (
+			'select sum(num_attendees) from #prefix#event_registration
+			 where event_id = ? and
+			 status = 1 or
+			 (status = 0 and expires > ?)',
+			 $this->data['id'],
+			 gmdate ('Y-m-d H:i:s')
+		);
+
+		return $this->data['available'] - $num;
+	}
+
+	/**
 	 * Generate a list of pages for the sitemaps app.
 	 */
 	public static function sitemap () {
