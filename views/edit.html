@@ -122,6 +122,13 @@
 <p>Contact:<br /><input type="text" name="contact" size="50" value="{{ contact|quotes }}" /></p>
 <p>Email:<br /><input type="text" name="email" size="50" value="{{ email|quotes }}" /></p>
 <p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone|quotes }}" /></p>
+
+<p>{"Seats available (optional)"}:<br /><input type="text" name="available" size="10" value="{{ available|quotes }}" />
+<span class="notice" id="price-notice">{"Please enter a valid price"} (ex: 123.45)</span></p>
+
+<p>{"Price (optional)"}:<br />$<input type="text" name="price" size="9" value="{{ price|quotes }}" />
+<span class="notice" id="price-notice">{"Please enter a valid price"} (ex: 123.45)</span></p>
+
 </div>
 <p>
 	<input type="submit" value="Save Event" class="autosave-clear" />&nbsp;

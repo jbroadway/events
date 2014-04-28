@@ -9,7 +9,7 @@
 <input type="text" name="start_date" class="date" size="24" value="{{ start_date|quotes }}" />
 &nbsp; Ends: <input type="text" name="end_date" class="date" size="24" value="{{ end_date|quotes }}" />
 <br />
-<span class="notice" id="start_date-notice">You must enter a date.</span></p>
+<span class="notice" id="start_date-notice">{"You must enter a date."}</span></p>
 <p>Time:
 <select name="starts">
 	<option value="00:00:00"{% if starts == '00:00:00' %} selected{% end %}>12:00am</option>
@@ -112,20 +112,27 @@
 	<option value="23:00:00"{% if ends == '23:00:00' %} selected{% end %}>11:00pm</option>
 	<option value="23:30:00"{% if ends == '23:30:00' %} selected{% end %}>11:30pm</option>
 </select></p>
-<p>Details: <span class="notice" id="details-notice">You must enter event details.</span><br />
+<p>{"Details"}: <span class="notice" id="details-notice">{"You must enter event details."}</span><br />
 <textarea name="details" id="webpage-body" cols="90" rows="28">{{ details }}</textarea></p>
 
 <h4><a href="#" onclick="return webpage_show_extra_options (this)" class="extra-options-link"><span class="arrow arrow-off"></span>{"Extra Options"}</a></h4>
 <div id="extra-options">
-<p>Address:<br /><input type="text" name="address" size="50" value="{{ address|quotes }}" /></p>
-<p>City:<br /><input type="text" name="city" size="50" value="{{ city|quotes }}" /></p>
-<p>Contact:<br /><input type="text" name="contact" size="50" value="{{ contact|quotes }}" /></p>
-<p>Email:<br /><input type="text" name="email" size="50" value="{{ email|quotes }}" /></p>
-<p>Phone:<br /><input type="text" name="phone" size="50" value="{{ phone|quotes }}" /></p>
+<p>{"Address"}:<br /><input type="text" name="address" size="50" value="{{ address|quotes }}" /></p>
+<p>{"City"}:<br /><input type="text" name="city" size="50" value="{{ city|quotes }}" /></p>
+<p>{"Contact"}:<br /><input type="text" name="contact" size="50" value="{{ contact|quotes }}" /></p>
+<p>{"Email"}:<br /><input type="text" name="email" size="50" value="{{ email|quotes }}" /></p>
+<p>{"Phone"}:<br /><input type="text" name="phone" size="50" value="{{ phone|quotes }}" /></p>
+
+<p>{"Seats available (optional)"}:<br /><input type="text" name="available" size="10" value="{{ available|quotes }}" />
+<span class="notice" id="price-notice">{"Please enter a valid price"} (ex: 123.45)</span></p>
+
+<p>{"Price (optional)"}:<br />$<input type="text" name="price" size="9" value="{{ price|quotes }}" />
+<span class="notice" id="price-notice">{"Please enter a valid price"} (ex: 123.45)</span></p>
+
 </div>
 <p>
 	<input type="submit" value="Add Event" class="autosave-clear" />&nbsp;
-	<a href="javascript:history.go(-1)" onclick="return $.cancel_autosave ('Are you sure you want to cancel and lose any changes?')">Cancel</a>
+	<a href="javascript:history.go(-1)" onclick="return $.cancel_autosave ('{'Are you sure you want to cancel and lose any changes?'}')">{"Cancel"}</a>
 </p>
 </form>
 

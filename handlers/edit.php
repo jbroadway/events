@@ -31,6 +31,8 @@ if ($f->submit ()) {
 	$e->contact = $_POST['contact'];
 	$e->email = $_POST['email'];
 	$e->phone = $_POST['phone'];
+	$e->available = (! empty ($_POST['available'])) ? $_POST['available'] : 0;
+	$e->price = (! empty ($_POST['price'])) ? $_POST['price'] : 0;
 	$e->put ();
 	Versions::add ($e);
 	if (! $e->error) {

@@ -9,6 +9,9 @@ if (! User::require_admin ()) {
 $f = new Form ('post', 'events/add');
 $f->verify_csrf = false;
 if ($f->submit ()) {
+	$_POST['available'] = (! empty ($_POST['available'])) ? $_POST['available'] : 0;
+	$_POST['price'] = (! empty ($_POST['price'])) ? $_POST['price'] : 0;
+
 	$e = new Event ($_POST);
 	$e->put ();
 	Versions::add ($e);
@@ -31,6 +34,8 @@ if ($f->submit ()) {
 	$e->start_date = gmdate ('Y-m-d');
 	$e->starts = '18:00:00';
 	$e->ends = '20:00:00';
+	$e->available = 0;
+	$e->price = '0.00';
 
 	$e->failed = $f->failed;
 	$e = $f->merge_values ($e);
