@@ -18,7 +18,9 @@ $form->data = array (
 	'layouts' => admin_get_layouts (),
 	'layout' => $appconf['Events']['layout'],
 	'event_layout' => $appconf['Events']['event_layout'],
-	'gcal_link' => $appconf['Events']['gcal_link']
+	'gcal_link' => $appconf['Events']['gcal_link'],
+	'payment_handler' => $appconf['Events']['payment_handler'],
+	'payment_handlers' => lemur\Lemur::payment_handlers ()
 );
 
 echo $form->handle (function ($form) {
@@ -27,7 +29,8 @@ echo $form->handle (function ($form) {
 			'title' => $_POST['title'],
 			'layout' => $_POST['layout'],
 			'event_layout' => $_POST['event_layout'],
-			'gcal_link' => $_POST['gcal_link']
+			'gcal_link' => $_POST['gcal_link'],
+			'payment_handler' => $_POST['payment_handler']
 		)
 	));
 

@@ -21,6 +21,9 @@ event_layout = default
 
 gcal_link = ""
 
+; The payment handler for paid courses.
+payment_handler = ""
+
 ; Whether to include this app in the list of pages
 ; available to the Tools > Navigation tree.
 
@@ -32,7 +35,7 @@ handler = events/admin
 name = Events
 install = events/install
 upgrade = events/upgrade
-version = 1.0.3-stable
+version = 1.0.4-stable
 sitemap = "Event::sitemap"
 search = "Event::search"
 
