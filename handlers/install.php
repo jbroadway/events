@@ -27,21 +27,21 @@ if (ELEFANT_VERSION < '1.1.0') {
 	$driver = $conn['driver'];
 }
 
+DB::beginTransaction ();
+
 $error = false;
 $sqldata = sql_split (file_get_contents ('apps/events/conf/install_' . $driver . '.sql'));
 foreach ($sqldata as $sql) {
 	if (! DB::execute ($sql)) {
 		$error = DB::error ();
-		echo '<p class="notice">' . __ ('Error') . ': ' . DB::error () . '</p>';
-		break;
+		DB::rollback ();
+		echo '<p class="visible-notice">' . __ ('Error') . ': ' . $error . '</p>';
+		echo '<p>' . __ ('Install failed.') . '</p>';
+		return;
 	}
 }
 
-if ($error) {
-	echo '<p class="notice">' . __ ('Error') . ': ' . $error . '</p>';
-	echo '<p>' . __ ('Install failed.') . '</p>';
-	return;
-}
+DB::commit ();
 
 echo '<p><a href="/events/admin">' . __ ('Done.') . '</a></p>';
 

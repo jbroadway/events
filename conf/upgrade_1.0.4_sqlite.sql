@@ -1,21 +1,5 @@
-create table #prefix#event (
-	id integer primary key,
-	title char(48) not null,
-	start_date date not null,
-	end_date date not null,
-	starts time not null,
-	ends time not null,
-	details text not null,
-	address char(48) not null,
-	city char(48) not null,
-	contact char(48) not null,
-	email char(48) not null,
-	phone char(48) not null,
-	price float not null default 0.0,
-	available int not null default 0
-);
-
-create index #prefix#event_date on #prefix#event (start_date, starts, end_date);
+alter table #prefix#event add column price float not null default 0.0;
+alter table #prefix#event add column available int not null default 0;
 
 create table #prefix#event_registration (
 	id integer primary key,

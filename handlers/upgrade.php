@@ -68,6 +68,28 @@ if ($prefix !== '') {
 	}
 }
 
+$res = DB::shift ('select count(*) from #prefix#event_registration');
+if ($res === false) {
+	$conn = conf ('Database', 'master');
+	$driver = $conn['driver'];
+
+	DB::beginTransaction ();
+
+	$error = false;
+	$sqldata = sql_split (file_get_contents ('apps/events/conf/upgrade_1.0.4_' . $driver . '.sql'));
+	foreach ($sqldata as $sql) {
+		if (! DB::execute ($sql)) {
+			$error = DB::error ();
+			DB::rollback ();
+			echo '<p class="visible-notice">' . __ ('Error') . ': ' . $error . '</p>';
+			echo '<p>' . __ ('Install failed.') . '</p>';
+			return;
+		}
+	}
+	
+	DB::commit ();
+}
+
 echo '<p>Done.</p>';
 
 $this->mark_installed ('events', $appconf['Admin']['version']);
