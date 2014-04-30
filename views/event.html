@@ -12,17 +12,21 @@
 	<div class="event-registration">
 	{% if available > 0 %}
 		{% if remaining > 0 %}
-			<p class="event-registration-link"><a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
-			<div id="event-registration" style="display: none">
-				<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
-					<h3>{"Already a member?"}</h3>
-					{! user/login?redirect=/events/register/[id] !}
+			{% if User::require_login () %}
+				<p class="event-registration-link"><a href="/events/register/{{id}}" id="event-registration-link">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
+			{% else %}
+				<p class="event-registration-link"><a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
+				<div id="event-registration" style="display: none">
+					<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
+						<h3>{"Already a member?"}</h3>
+						{! user/login?redirect=/events/register/[id] !}
+					</div>
+					<div style="display: inline-block; width: 45%; vertical-align: top">
+						<h3>{"Create a new account"}</h3>
+						{! user/signup?redirect=/events/register/[id] !}
+					</div>
 				</div>
-				<div style="display: inline-block; width: 45%; vertical-align: top">
-					<h3>{"Create a new account"}</h3>
-					{! user/signup?redirect=/events/register/[id] !}
-				</div>
-			</div>
+			{% end %}
 		{% else %}
 			<p class="event-sold-out"><strong>{"SOLD OUT"}</strong></p>
 		{% end %}
@@ -51,7 +55,7 @@
 
 <script>
 
-{% if remaining > 0 %}
+{% if remaining > 0 && ! User::require_login () %}
 	var events_toggle_registration_status = false;
 	function events_toggle_registration (link) {
 		if (! events_toggle_registration_status) {
