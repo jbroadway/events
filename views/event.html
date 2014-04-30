@@ -55,7 +55,7 @@
 
 <script>
 
-{% if remaining > 0 && ! User::require_login () %}
+{% if $data->remaining > 0 && ! User::require_login () %}
 	var events_toggle_registration_status = false;
 	function events_toggle_registration (link) {
 		if (! events_toggle_registration_status) {
