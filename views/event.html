@@ -8,6 +8,28 @@
 	{% end %}
 </p>
 
+{% if ! has_passed %}
+	<div class="event-registration">
+	{% if available > 0 %}
+		{% if remaining > 0 %}
+			<p class="event-registration-link"><a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
+			<div id="event-registration" style="display: none">
+				<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
+					<h3>{"Already a member?"}</h3>
+					{! user/login?redirect=/events/register/[id] !}
+				</div>
+				<div style="display: inline-block; width: 45%; vertical-align: top">
+					<h3>{"Create a new account"}</h3>
+					{! user/signup?redirect=/events/register/[id] !}
+				</div>
+			</div>
+		{% else %}
+			<p class="event-sold-out"><strong>{"SOLD OUT"}</strong></p>
+		{% end %}
+	{% end %}
+	</div>
+{% end %}
+
 <p class="event-datetime"><strong>{"When"}:</strong><br />
 {{ start_date|events_filter_date }}{% if end_date %} - {{ end_date|events_filter_date }}{% end %}<br />
 {{ starts|events_filter_time }}{% if ends != '00:00:00' %} - {{ ends|events_filter_time }}{% end %}</p>
@@ -28,6 +50,23 @@
 <br />
 
 <script>
+
+{% if remaining > 0 %}
+	var events_toggle_registration_status = false;
+	function events_toggle_registration (link) {
+		if (! events_toggle_registration_status) {
+			events_toggle_registration_status = true;
+			$('#event-registration').slideDown ();
+		} else {
+			events_toggle_registration_status = false;
+			$('#event-registration').slideUp ();
+		}
+		return false;
+	}
+	{% if $_SERVER.REQUEST_METHOD == 'POST' %}
+		events_toggle_registration (null);
+	{% end %}
+{% end %}
 
 var events_toggle_map_status = false;
 function events_toggle_map (link) {

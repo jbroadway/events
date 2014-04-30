@@ -19,6 +19,8 @@ if (count ($this->params) > 0) {
 	$page->title = $e->title;
 	$page->layout = $appconf['Events']['event_layout'];
 	$e->details = $tpl->run_includes ($e->details);
+	$e->remaining = $e->available ();
+	$e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
 	echo $tpl->render ('events/event', $e->orig ());
 } else {
 	if (! $this->internal) {

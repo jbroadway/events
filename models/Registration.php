@@ -44,8 +44,9 @@ class Registration extends \Model {
 	 * Clear expired registration reservations for an event.
 	 */
 	public static function clear_expired ($event_id) {
+		$r = new Registration;
 		$res = \DB::execute (
-			'delete from ' . self::backticks ($this->table)
+			'delete from ' . self::backticks ($r->table)
 				. ' where event_id = ?'
 				. ' and status = 0'
 				. ' and expires <= ?',
@@ -90,6 +91,18 @@ class Registration extends \Model {
 	 */
 	public static function reserve ($event_id, $num_attendees = 1, $user = null) {
 		$user = $user ? $user : \User::current ();
+
+		$r = Registration::query ()
+			->where ('event_id', $event_id)
+			->where ('user_id', $user->id)
+			->single ();
+
+		if ($r && ! $r->error) {
+			$r->expires = gmdate ('Y-m-d H:i:s', time () + 900);
+			$r->num_attendees = $num_attendees;
+			$r->put ();
+			return $r;
+		}
 
 		$r = new Registration (array (
 			'event_id' => $event_id,

@@ -1,0 +1,50 @@
+{% if remaining <= 0 %}
+	<p class="event-sold-out"><strong>{"Sorry, this event is sold out."}</strong></p>
+{% else %}
+
+<p class="event-price">
+	{% if price > 0 %}
+		{"Price"}: ${{price|number_format (%s, 2)}}/{"guest"}
+	{% else %}
+		{"Price"}: {"Free!"}
+	{% end %}
+</p>
+
+<p class="event-attendees">
+	{"Guests"}: <select id="event-attendees">
+		<option value="0">- {"select"} -</option>
+		{% foreach options as num %}
+			<option value="{{num}}">{{num}}</option>
+		{% end %}
+	</select>
+</p>
+
+<p id="event-error"></p>
+
+<p class="subtotal">
+	{"Subtotal"}: <span id="subtotal"></span>
+</p>
+
+<script>
+$(function () {
+	event_registration.init ({
+		attendee_list: '#event-attendees',
+		show_error: '#event-error',
+		subtotal: '#subtotal',
+		event_id: {{id}},
+		remaining: {{remaining}},
+		price: {{price * 100}},
+		reservation_id: {{reservation_id}},
+		num_attendees: {{num_attendees}}
+	});
+});
+</script>
+
+<style>
+#event-error {
+	color: #900;
+	display: none;
+}
+</style>
+
+{% end %}
