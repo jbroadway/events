@@ -22,11 +22,19 @@ $r = events\Registration::query ()
 	->single ();
 
 if (! $r || $r->error || $r->expires <= gmdate ('Y-m-d H:i:s')) {
+	$e->company = '';
 	$e->reservation_id = 0;
 	$e->num_attendees = 0;
+	$e->attendees = '[]';
 } else {
+	$e->company = $r->company;
 	$e->reservation_id = $r->id;
 	$e->num_attendees = $r->num_attendees;
+	if (strlen ($r->attendees) > 0) {
+		$e->attendees = $r->attendees;
+	} else {
+		$e->attendees = '[]';
+	}
 }
 
 if ($e->price > 0) {

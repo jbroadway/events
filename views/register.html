@@ -21,21 +21,48 @@
 
 <p id="event-error"></p>
 
-<p class="subtotal">
-	{"Subtotal"}: <span id="subtotal"></span>
+<p class="event-subtotal">
+	{"Subtotal"}: <span id="event-subtotal"></span>
 </p>
+
+<form id="event-inputs">
+	<p>
+		{"Organization name"}:<br />
+		<input type="text" name="event_company" id="event-company" size="30" />
+	</p>
+
+	<p>
+		{"Names of guests"}:<br />
+		<span id="event-attendee-inputs"></span>
+	</p>
+
+	<p class="event-clear">
+		<button id="event-submit">{"Continue"}</button>
+	</p>
+</form>
 
 <script>
 $(function () {
 	event_registration.init ({
 		attendee_list: '#event-attendees',
 		show_error: '#event-error',
-		subtotal: '#subtotal',
+		subtotal: '#event-subtotal',
+		subtotal_block: '.event-subtotal',
+		inputs: '#event-inputs',
+		company_field: '#event-company',
+		attendee_inputs: '#event-attendee-inputs',
 		event_id: {{id}},
 		remaining: {{remaining}},
 		price: {{price * 100}},
 		reservation_id: {{reservation_id}},
-		num_attendees: {{num_attendees}}
+		num_attendees: {{num_attendees}},
+		company: "{{company}}",
+		attendees: {{attendees|none}},
+		strings: {
+			reserved_error: "{"Unable to make a reservation at this time. Please try again later."}",
+			attendees_error: "{"Please enter the names of each of the guests to continue."}",
+			updated_error: "{"An unexpected error occurred. Please try again later."}"
+		}
 	});
 });
 </script>
@@ -44,6 +71,19 @@ $(function () {
 #event-error {
 	color: #900;
 	display: none;
+}
+
+#event-inputs {
+	display: none;
+}
+
+.event-attendee {
+	display: block;
+	margin-bottom: 12px;
+}
+
+.event-clear {
+	clear: both;
 }
 </style>
 

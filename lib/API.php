@@ -10,12 +10,12 @@ class API extends \Restful {
 	 */
 	public function post_reserve ($event_id, $num_attendees) {
 		if (! \User::require_login ()) {
-			return $this->error ('Must be logged in.');
+			return $this->error ('Unauthorized');
 		}
 
 		$registration = Registration::reserve ($event_id, $num_attendees);
 		if ($registration->error) {
-			return $this->error ('Unable to make a reservation at this time.');
+			return $this->error ('Reservation failed');
 		}
 		return $registration->orig ();
 	}
@@ -27,12 +27,12 @@ class API extends \Restful {
 	 */
 	public function get_expired ($registration_id) {
 		if (! \User::require_login ()) {
-			return $this->error ('Must be logged in.');
+			return $this->error ('Unauthorized');
 		}
 
 		$registration = new Registration ($registration_id);
 		if ($registration->error) {
-			return $this->error ('Reservation not found.');
+			return $this->error ('Reservation not found');
 		}
 		
 		return $registration->expired ();
@@ -50,12 +50,12 @@ class API extends \Restful {
 	 */
 	public function post_update ($registration_id) {
 		if (! \User::require_login ()) {
-			return $this->error ('Must be logged in.');
+			return $this->error ('Unauthorized');
 		}
 
 		$registration = new Registration ($registration_id);
 		if ($registration->error) {
-			return $this->error ('Reservation not found.');
+			return $this->error ('Reservation not found');
 		}
 		
 		if (isset ($_POST['company'])) {
@@ -64,17 +64,17 @@ class API extends \Restful {
 
 		if (isset ($_POST['attendees'])) {
 			if (! is_array ($_POST['attendees'])) {
-				return $this->error ('Attendees should be an array.');
+				return $this->error ('Attendees should be an array');
 			}
 			if (count ($_POST['attendees']) != $registration->num_attendees) {
-				return $this->error ('Incorrect number of attendees.');
+				return $this->error ('Incorrect number of attendees');
 			}
 			$registration->attendees = json_encode ($_POST['attendees']);
 		}
 
 		if (! $registration->put ()) {
 			error_log ('[events/api/registration/update] ' . $registration->error);
-			return $this->error ('Error saving registration info.');
+			return $this->error ('Update failed');
 		}
 		return true;
 	}
@@ -86,12 +86,12 @@ class API extends \Restful {
 	 */
 	public function post_complete ($registration_id, $payment_id = 0) {
 		if (! \User::require_login ()) {
-			return $this->error ('Must be logged in.');
+			return $this->error ('Unauthorized');
 		}
 
 		$registration = new Registration ($registration_id);
 		if ($registration->error) {
-			return $this->error ('Reservation not found.');
+			return $this->error ('Reservation not found');
 		}
 		
 		return $registration->complete ($payment_id);
