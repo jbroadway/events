@@ -166,7 +166,15 @@ var event_registration = (function ($) {
 	};
 	
 	self.complete_registration = function (res) {
-		//
+		$.post (self.prefix + 'complete/' + self.opts.reservation_id, {}, self.completed);
+	};
+	
+	self.completed = function (res) {
+		if (! res.success) {
+			return self.error (self.opts.strings.completed_error, res.error);
+		}
+		
+		window.location.href = '/events/registered/' + self.opts.event_id + '/' + self.opts.reservation_id;
 	};
 	
 	return self;

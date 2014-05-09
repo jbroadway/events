@@ -1,0 +1,24 @@
+<p>{"You have been registered for the following event"}:</p>
+
+<p>
+	<strong><a href="/events/{{ event->id }}/{{ event->title|URLify::filter }}">{{ event->title }}</a></strong><br />
+
+	{{ event->start_date|I18n::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|I18n::date|strip_tags }}{% end %}
+	{{ event->starts|I18n::time|strip_tags }}{% if event->ends != '00:00:00' %} - {{ event->ends|I18n::time|strip_tags }}{% end %}<br />
+
+	{{ event->address }}{% if event->city != '' %}, {{ event->city }}{% end %}
+</p>
+
+<p>{{ num_attendees}} {"Guests:"}</p>
+
+<ul>
+{% foreach attendees as attendee %}
+	<li>{{ attendee }}</li>
+{% end %}
+</ul>
+
+{% if company != '' %}
+<p>{"Company"}: {{ company }}</p>
+{% end %}
+
+<p>{"You should receive an email confirmation in your inbox shortly. Please check your spam folder if you don't see it in your inbox."}</p>

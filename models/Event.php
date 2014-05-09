@@ -28,7 +28,7 @@ class Event extends Model {
 			return $this->data['available'];
 		}
 
-		$num = DB::single (
+		$num = DB::shift (
 			'select sum(num_attendees) from #prefix#event_registration
 			 where event_id = ? and
 			 status = 1 or

@@ -16,10 +16,15 @@ if ($e->error) {
 $e->remaining = $e->available ();
 $e->options = range (1, ($e->remaining < 12) ? $e->remaining : 12);
 
-$r = events\Registration::query ()
-	->where ('event_id', $e->id)
-	->where ('user_id', User::val ('id'))
-	->single ();
+if (User::require_login ()) {
+	$r = events\Registration::query ()
+		->where ('event_id', $e->id)
+		->where ('user_id', User::val ('id'))
+		->where ('status', 0)
+		->single ();
+} else {
+	$r = false;
+}
 
 if (! $r || $r->error || $r->expires <= gmdate ('Y-m-d H:i:s')) {
 	$e->company = '';

@@ -95,6 +95,7 @@ class Registration extends \Model {
 		$r = Registration::query ()
 			->where ('event_id', $event_id)
 			->where ('user_id', $user->id)
+			->where ('status', 0)
 			->single ();
 
 		if ($r && ! $r->error) {

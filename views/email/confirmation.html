@@ -1,0 +1,40 @@
+Hi {{ user->name }},
+
+This email confirms your registration for the following event:
+
+  {{ event->title }} 
+
+When:
+
+  {{ event->start_date|I18n::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|I18n::date|strip_tags }}{% end %} 
+  {{ event->starts|I18n::time|strip_tags }}{% if event->ends != '00:00:00' %} - {{ event->ends|I18n::time|strip_tags }}{% end %} 
+
+{% if event->address != '' %}
+Where:
+
+  {{ event->address }}{% if event->city != '' %}, {{ event->city }}{% end %} 
+{% end %}
+
+{{ num_attendees}} Guests:
+
+{% foreach attendees as attendee %}
+  * {{ attendee }} 
+{% end %}
+
+{% if company != '' %}
+Company: {{ company }} 
+{% end %}
+{% if payment_id != 0 %}
+
+Order number:  Yo{{ payment_id }} 
+Placed:        {{ ts|I18n::date_time|strip_tags }} 
+Fee per guest: ${{ event->price|number_format (%s, 2) }} 
+Guests:        {{ num_attendees }} 
+Total:         ${{ subtotal|number_format (%s, 2) }} 
+{% end %}
+
+If you have any questions or concerns, please reply to this email and let us know!
+
+Regards,
+
+{{ conf('General', 'site_name') }}

@@ -94,7 +94,35 @@ class API extends \Restful {
 			return $this->error ('Reservation not found');
 		}
 		
-		return $registration->complete ($payment_id);
+		$event = new \Event ($registration->event_id);
+		if ($event->error) {
+			return $this->error ('Event not found');
+		}
+
+		$res = $registration->complete ($payment_id);
+		if (! $res) {
+			return $this->error ('Registration failed');
+		}
+		
+		try {
+			$r = $registration->orig ();
+			$r->attendees = json_decode ($r->attendees);
+			$r->event = $event->orig ();
+			$r->user = \User::current ()->orig ();
+			
+			if ($r->payment_id) {
+				$r->subtotal = $r->event->price * $r->num_attendees;
+			}
+
+			\Mailer::send (array (
+				'to' => array (\User::val ('email'), \User::val ('name')),
+				'subject' => 'Event registration confirmation: ' . $event->title,
+				'text' => $this->controller->template ()->render ('events/email/confirmation', $r)
+			));
+		} catch (\Exception $e) {
+		}
+		
+		return $res;
 	}
 }
 
