@@ -1,0 +1,8 @@
+<p>
+	{{ start_date|I18n::date|strip_tags }}{% if end_date %} - {{ end_date|I18n::date|strip_tags }}{% end %}
+	{{ starts|I18n::time|strip_tags }}{% if ends != '00:00:00' %} - {{ ends|I18n::time|strip_tags }}{% end %}<br />
+
+	{{ address }}{% if city != '' %}, {{ city }}{% end %}
+</p>
+
+<p>{"Guests"}: {{ num_attendees }}</p>

@@ -115,7 +115,7 @@ var event_registration = (function ($) {
 				html += ' value="' + names[i] + '"';
 			}
 
-			html += ' size="30" /></span>';
+			html += ' class="event-attendee-input" size="30" /></span>';
 
 			inputs.append (html);
 		}
@@ -130,13 +130,11 @@ var event_registration = (function ($) {
 			attendees = [],
 			form = $(self.opts.inputs),
 			inputs = $(self.opts.attendee_inputs),
-			attendee_inputs = form[0].elements['attendees[]'];
-		
-		if (attendee_inputs !== undefined) {
-			for (var i = 0; i < attendee_inputs.length; i++) {
-				attendees.push (attendee_inputs[i].value);
-			}
-		}
+			attendee_inputs = $('.event-attendee-input');
+
+		$('.event-attendee-input').each (function () {
+			attendees.push ($(this).val ());
+		});
 		
 		for (var i = 0; i < attendees.length; i++) {
 			if (attendees[i].length === 0) {
@@ -162,7 +160,7 @@ var event_registration = (function ($) {
 	};
 
 	self.open_payment_form = function (res) {
-		//
+		window.location.href = '/events/register/' + self.opts.event_id + '/checkout';
 	};
 	
 	self.complete_registration = function (res) {
