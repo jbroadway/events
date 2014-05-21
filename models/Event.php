@@ -15,6 +15,8 @@
  * contact
  * email
  * phone
+ * price
+ * available
  */
 class Event extends Model {
 	public $table = '#prefix#event';
@@ -38,6 +40,20 @@ class Event extends Model {
 		);
 
 		return $this->data['available'] - $num;
+	}
+	
+	/**
+	 * Return the number of confirmed guests for several events from an
+	 * array of event IDs. Does not calculate availability and does not
+	 * consider registrations that are in progress.
+	 */
+	public static function guests ($ids) {
+		return DB::pairs (
+			'select event_id, sum(num_attendees) from #prefix#event_registration
+			where event_id in(' . join (', ', $ids) . ')
+			and status = 1
+			group by event_id'
+		);
 	}
 
 	/**

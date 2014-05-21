@@ -1,0 +1,20 @@
+<p>
+	<a href="/events/admin">&laquo; {"Back"}</a>
+	&nbsp;|&nbsp;
+	<a href="/events/guests/export?id={{id}}">{"Export"}</a>
+</p>
+
+<p>
+<table width="100%">
+	<tr>
+		<th width="50%">{"Name"}</th>
+		<th width="50%">{"Company"}</th>
+	</tr>
+{% foreach guests as guest %}
+	<tr>
+		<td>{{guest->name}}</td>
+		<td>{{guest->company}}</td>
+	</tr>
+{% end %}
+</table>
+</p>
