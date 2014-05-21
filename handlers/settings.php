@@ -20,7 +20,7 @@ $form->data = array (
 	'event_layout' => $appconf['Events']['event_layout'],
 	'gcal_link' => $appconf['Events']['gcal_link'],
 	'payment_handler' => $appconf['Events']['payment_handler'],
-	'payment_handlers' => lemur\Lemur::payment_handlers ()
+	'payment_handlers' => events\App::payment_handlers ()
 );
 
 echo $form->handle (function ($form) {
