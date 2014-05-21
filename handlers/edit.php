@@ -2,9 +2,7 @@
 
 $page->layout = 'admin';
 
-if (! User::require_admin ()) {
-	$this->redirect ('/admin');
-}
+$this->require_acl ('admin', 'admin/edit', 'events');
 
 $lock = new Lock ('Event', $_GET['id']);
 if ($lock->exists ()) {

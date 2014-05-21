@@ -2,9 +2,7 @@
 
 $page->layout = 'admin';
 
-if (! User::require_admin ()) {
-	$this->redirect ('/admin');
-}
+$this->require_acl ('admin', 'admin/delete', 'events');
 
 $lock = new Lock ('Event', $_POST['id']);
 if ($lock->exists ()) {

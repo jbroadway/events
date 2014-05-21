@@ -2,9 +2,7 @@
 
 $page->layout = 'admin';
 
-if (! User::require_admin ()) {
-	$this->redirect ('/admin');
-}
+$this->require_acl ('admin', 'events');
 
 require_once ('apps/events/lib/Filters.php');
 
@@ -13,13 +11,20 @@ $_GET['offset'] = (isset ($_GET['offset'])) ? $_GET['offset'] : 0;
 
 $lock = new Lock ();
 
-$events = Event::query ('id, title, start_date, end_date, starts, ends')
+$events = Event::query ('id, title, start_date, end_date, starts, ends, available')
 	->order ('start_date desc')
 	->fetch_orig ($limit, $_GET['offset']);
 $count = Event::query ()->count ();
+$ids = array ();
 
 foreach ($events as $k => $e) {
+	$ids[] = $e->id;
 	$events[$k]->locked = $lock->exists ('Event', $e->id);
+}
+
+$guests = Event::guests ($ids);
+foreach ($events as $k => $e) {
+	$events[$k]->guests = isset ($guests[$e->id]) ? $guests[$e->id] : 0;
 }
 
 $page->title = i18n_get ('Events');
