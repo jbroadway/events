@@ -28,10 +28,14 @@ if (count ($this->params) > 0) {
 		$page->title = __ ($appconf['Events']['title']);
 		$page->layout = $appconf['Events']['layout'];
 	}
+	$page->add_script ('/apps/events/js/fullcalendar/lib/moment.min.js');
 	$page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
 	$page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
 	if (strlen ($appconf['Events']['gcal_link']) > 0) {
 		$page->add_script ('/apps/events/js/fullcalendar/gcal.js');
+	}
+	if (file_exists ('apps/events/js/fullcalendar/lang/' . $i18n->language . '.js')) {
+		$page->add_script ('/apps/events/js/fullcalendar/lang/' . $i18n->language . '.js');
 	}
 	echo $tpl->render (
 		'events/index',
