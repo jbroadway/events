@@ -2,13 +2,13 @@
 
 $page->layout = false;
 
-$start = gmdate ('Y-m-d H:i:s', $_GET['start']);
-$end = gmdate ('Y-m-d H:i:s', $_GET['end']);
+$start = gmdate ('Y-m-d H:i:s', strtotime ($_GET['start']));
+$end = gmdate ('Y-m-d H:i:s', strtotime ($_GET['end']));
 
 $events = array ();
 $res = Event::query ()
-	->where ('start_date >= "' . $start . '"')
-	->where ('end_date <= "' . $end . '"')
+	->where ('start_date >= ?', $start)
+	->where ('end_date <= ?', $end)
 	->fetch_orig ();
 
 foreach ($res as $row) {
