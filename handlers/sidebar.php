@@ -19,6 +19,10 @@ $data['events'] = Event::query ()
 	->order ('start_date', 'asc')
 	->fetch_orig ($data['limit']);
 
+foreach ($data['events'] as $key => $event) {
+	$data['events'][$key]->date = $event->start_date . ' ' . $event->starts;
+}
+
 if ($data['details'] === 'yes') {
 	echo $tpl->render ('events/list', $data);
 } else {
