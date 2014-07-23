@@ -4,8 +4,6 @@
  * Sidebar list of events.
  */
 
-require_once ('apps/events/lib/Filters.php');
-
 $data['limit'] = (isset ($data['limit']) && is_numeric ($data['limit'])) ? $data['limit'] : 10;
 
 if (! isset ($data['details']) || ($data['details'] !== 'no' && $data['details'] !== 'yes')) {

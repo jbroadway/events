@@ -35,7 +35,7 @@ $page->title = sprintf (
 	'%s: %s (%s)',
 	__ ('Guests'),
 	$event->title,
-	I18n::date ($event->start_date)
+	events\Filter::date ($event->start_date)
 );
 
 echo $tpl->render ('events/guests', $event);

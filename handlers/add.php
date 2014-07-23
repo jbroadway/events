@@ -7,6 +7,7 @@ $this->require_acl ('admin', 'admin/add', 'events');
 $f = new Form ('post', 'events/add');
 $f->verify_csrf = false;
 if ($f->submit ()) {
+	$_POST['end_date'] = (! empty ($_POST['end_date'])) ? $_POST['end_date'] : $_POST['start_date'];
 	$_POST['available'] = (! empty ($_POST['available'])) ? $_POST['available'] : 0;
 	$_POST['price'] = (! empty ($_POST['price'])) ? $_POST['price'] : 0;
 

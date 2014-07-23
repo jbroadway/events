@@ -4,8 +4,6 @@ $page->layout = 'admin';
 
 $this->require_acl ('admin', 'events');
 
-require_once ('apps/events/lib/Filters.php');
-
 $limit = 20;
 $_GET['offset'] = (isset ($_GET['offset'])) ? $_GET['offset'] : 0;
 
@@ -20,6 +18,9 @@ $ids = array ();
 foreach ($events as $k => $e) {
 	$ids[] = $e->id;
 	$events[$k]->locked = $lock->exists ('Event', $e->id);
+	if ($e->end_date === '' || $e->end_date === '0000-00-00' || $e->end_date === $e->start_date) {
+		$e->end_date = false;
+	}
 }
 
 $guests = Event::guests ($ids);

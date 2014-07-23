@@ -32,8 +32,6 @@ if ($registration->status == 0) {
 	return;
 }
 
-require_once ('apps/events/lib/Filters.php');
-
 $page->title = __ ('Event registration: ' . $event->title);
 
 $reg = $registration->orig ();

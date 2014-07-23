@@ -1,7 +1,5 @@
-{! admin/util/dates !}
-
 <ul>
 {% foreach events %}
-	<li>{{ loop_value->date|I18n::short_date }} - <a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></li>
+	<li>{{ loop_value->date|events\Filter::shortdate }} - <a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></li>
 {% end %}
 </ul>
