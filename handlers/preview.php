@@ -7,7 +7,7 @@
 
 $this->require_admin ();
 
-require_once ('apps/events/lib/Filters.php');
+require_once ('apps/events/lib/Filter.php');
 
 $e = new Event ($_POST);
 
