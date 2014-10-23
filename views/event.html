@@ -1,3 +1,5 @@
+{! admin/util/dates !}
+
 <p>
 	<a href="/events">&laquo; {"All Events"}</a>
 	{% if User::is_valid () %}
@@ -43,8 +45,8 @@
 {% end %}
 
 <p class="event-datetime"><strong>{"When"}:</strong><br />
-{{ start_date|events_filter_date }}{% if end_date %} - {{ end_date|events_filter_date }}{% end %}<br />
-{{ starts|events_filter_time }}{% if ends != '00:00:00' %} - {{ ends|events_filter_time }}{% end %}</p>
+{{ start_date|events\Filter::date }}{% if end_date %} - {{ end_date|events\Filter::date }}{% end %}<br />
+{{ starts|events\Filter::time }}{% if ends != '00:00:00' %} - {{ ends|events\Filter::time }}{% end %}</p>
 
 {% if address != '' %}
 <p class="event-address"><strong>{"Where"}:</strong><br />

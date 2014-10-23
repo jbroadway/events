@@ -6,8 +6,8 @@ This email confirms your registration for the following event:
 
 When:
 
-  {{ event->start_date|I18n::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|I18n::date|strip_tags }}{% end %} 
-  {{ event->starts|I18n::time|strip_tags }}{% if event->ends != '00:00:00' %} - {{ event->ends|I18n::time|strip_tags }}{% end %} 
+  {{ event->start_date|events\Filter::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|events\Filter::date|strip_tags }}{% end %} 
+  {{ event->starts|events\Filter::time|strip_tags }}{% if event->ends != '00:00:00' %} - {{ event->ends|events\Filter::time|strip_tags }}{% end %} 
 
 {% if event->address != '' %}
 Where:

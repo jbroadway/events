@@ -2,7 +2,7 @@
 {% foreach events %}
 	<div class="events-item">
 		<h4><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></h4>
-		<div class="events-item-date">{{ loop_value->start_date|events_filter_shortdate }}{% if loop_value->end_date != '' %}-{{ loop_value->end_date|events_filter_shortdate }}{% end %}</div>
+		<div class="events-item-date">{{ loop_value->start_date|events\Filter::shortdate }}{% if loop_value->end_date != '' %}-{{ loop_value->end_date|events\Filter::shortdate }}{% end %}</div>
 		<div class="events-item-details">{{ loop_value->details|none }}</div>
 	</div>
 {% end %}

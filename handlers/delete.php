@@ -14,7 +14,6 @@ if ($lock->exists ()) {
 $e = new Event ($_POST['id']);
 
 // for hooks
-require_once ('apps/events/lib/Filters.php');
 $_POST['page'] = 'events/' . $e->id . '/' . URLify::filter ($e->title);
 
 if (! $e->remove ()) {

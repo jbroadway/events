@@ -13,8 +13,8 @@
 <p>
 <table width="100%">
 	<tr>
-		<th width="25%">{"Title"}</th>
-		<th width="30%">{"Date"}</th>
+		<th width="30%">{"Title"}</th>
+		<th width="25%">{"Date"}</th>
 		<th width="15%">{"Time"}</th>
 		<th width="15%" style="text-align: right">{"Guests"}</th>
 		<th width="15%">&nbsp;</th>
@@ -22,8 +22,8 @@
 {% foreach events %}
 	<tr>
 		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}" target="_blank">{{ loop_value->title }}</a></td>
-		<td>{{ loop_value->start_date|events_filter_date }}{% if loop_value->end_date %} - {{ loop_value->end_date|events_filter_date }}{% end %}</td>
-		<td>{{ loop_value->starts|events_filter_time }}{% if loop_value->ends != '00:00:00' %} - {{ loop_value->ends|events_filter_time }}{% end %}</td>
+		<td>{{ loop_value->start_date|events\Filter::shortdaydate }}{% if loop_value->end_date %} - {{ loop_value->end_date|events\Filter::shortdaydate }}{% end %}</td>
+		<td>{{ loop_value->starts|events\Filter::time }}{% if loop_value->ends != '00:00:00' %} - {{ loop_value->ends|events\Filter::time }}{% end %}</td>
 		<td style="text-align: right">
 			{% if loop_value->available > 0 %}
 				<a href="/events/guests?id={{ loop_value->id }}">{{ loop_value->guests }} / {{ loop_value->available }}</a>

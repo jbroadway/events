@@ -20,7 +20,7 @@ $f->verify_csrf = false;
 if ($f->submit ()) {
 	$e->title = $_POST['title'];
 	$e->start_date = $_POST['start_date'];
-	$e->end_date = $_POST['end_date'];
+	$e->end_date = (! empty ($_POST['end_date'])) ? $_POST['end_date'] : $_POST['start_date'];
 	$e->starts = $_POST['starts'];
 	$e->ends = $_POST['ends'];
 	$e->details = $_POST['details'];
