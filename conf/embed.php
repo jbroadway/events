@@ -1,6 +1,6 @@
 ; <?php /*
 
-[events/index]
+[events/calendar]
 
 label = "Event Calendar"
 
