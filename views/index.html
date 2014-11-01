@@ -1,28 +1,13 @@
-<script>
-$(function () {
-	$('#events-calendar').fullCalendar ({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,basicWeek'
-		},
-		editable: false,
-		lang: '{{i18n.language}}',
-		{% if gcal_link %}
-		eventSources: [
-			'/events/json',
-			{
-				url: '{{gcal_link}}',
-				className: 'gcal-event'
-			}
-		]
-		{% else %}
-		events: '/events/json'
-		{% end %}
-	});
-});
-</script>
 {% if User::require_acl ('admin', 'admin/add', 'events') %}
 <p><a href="/events/add">{"Add Event"}</a></p>
 {% end %}
-<div id="events-calendar"></div>
+
+<div class="events-list">
+{% foreach events %}
+	<div class="events-item">
+		<h4><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></h4>
+		<div class="events-item-date">{{ loop_value->start_date|events\Filter::shortdate }}{% if loop_value->end_date != '' %}-{{ loop_value->end_date|events\Filter::shortdate }}{% end %}</div>
+		<div class="events-item-details">{{ loop_value->details|none }}</div>
+	</div>
+{% end %}
+</div>

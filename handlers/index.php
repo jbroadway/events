@@ -25,24 +25,28 @@ if (count ($this->params) > 0) {
     $e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
     echo $tpl->render ('events/event', $e->orig ());
 } else {
-    if (! $this->internal) {
-        $page->id = 'events';
-        $page->title = __ ($appconf['Events']['title']);
-        $page->layout = $appconf['Events']['layout'];
-    }
-    $page->add_script ('/apps/events/js/fullcalendar/lib/moment.min.js');
-    $page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
-    $page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
-    if (strlen ($appconf['Events']['gcal_link']) > 0) {
-        $page->add_script ('/apps/events/js/fullcalendar/gcal.js');
-    }
-    if (file_exists ('apps/events/js/fullcalendar/lang/' . $i18n->language . '.js')) {
-        $page->add_script ('/apps/events/js/fullcalendar/lang/' . $i18n->language . '.js');
-    }
-    echo $tpl->render (
-        'events/index',
-        array (
-            'gcal_link' => $appconf['Events']['gcal_link']
-        )
-    );
+	if (! $this->internal) {
+		$page->id = 'events';
+		$page->title = __ ($appconf['Events']['title']);
+		$page->layout = $appconf['Events']['layout'];
+	}
+	
+	$data = array (
+		'limit' => 20,
+		'details' => 'yes',
+		'events' => array ()
+	);
+
+	$start = gmdate ('Y-m-d');
+
+	$data['events'] = Event::query ()
+		->where ('start_date >= "' . $start . '"')
+		->order ('start_date', 'asc')
+		->fetch_orig ($data['limit']);
+
+	foreach ($data['events'] as $key => $event) {
+		$data['events'][$key]->date = $event->start_date . ' ' . $event->starts;
+	}
+	
+	echo $tpl->render ('events/index', $data);
 }

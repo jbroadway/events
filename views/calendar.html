@@ -1,0 +1,28 @@
+<script>
+$(function () {
+	$('#events-calendar').fullCalendar ({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,basicWeek'
+		},
+		editable: false,
+		lang: '{{i18n.language}}',
+		{% if gcal_link %}
+		eventSources: [
+			'/events/json',
+			{
+				url: '{{gcal_link}}',
+				className: 'gcal-event'
+			}
+		]
+		{% else %}
+		events: '/events/json'
+		{% end %}
+	});
+});
+</script>
+{% if User::require_acl ('admin', 'admin/add', 'events') %}
+<p><a href="/events/add">{"Add Event"}</a></p>
+{% end %}
+<div id="events-calendar"></div>

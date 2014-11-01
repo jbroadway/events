@@ -1,5 +1,9 @@
-<ul>
+<ul class="events-sidebar">
 {% foreach events %}
-	<li>{{ loop_value->date|events\Filter::shortdate }} - <a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></li>
+	<li class="events-sidebar-item">
+		<span class="events-sidebar-date">{{ loop_value->date|events\Filter::shortdate }}</span>
+		<span class="events-sidebar-separator"> - </span>
+		<a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a>
+	</li>
 {% end %}
 </ul>
