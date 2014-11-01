@@ -3,20 +3,20 @@
 $this->require_acl ('admin', 'events');
 
 if (! isset ($_GET['id'])) {
-	$this->redirect ('/events/admin');
+    $this->redirect ('/events/admin');
 }
 
 $event = new Event ($_GET['id']);
 if ($event->error) {
-	$this->redirect ('/events/admin');
+    $this->redirect ('/events/admin');
 }
 
 $event = $event->orig ();
 
 $reg = events\Registration::query ()
-	->where ('event_id', $event->id)
-	->where ('status', 1)
-	->fetch_orig ();
+    ->where ('event_id', $event->id)
+    ->where ('status', 1)
+    ->fetch_orig ();
 
 $page->layout = false;
 header ('Cache-control: private');
@@ -26,14 +26,12 @@ header ('Content-Disposition: attachment; filename=' . URLify::filter ($event->t
 echo "\"Guest name\",\"Company name\"\n";
 
 foreach ($reg as $registration) {
-	$guests = json_decode ($registration->attendees);
-	foreach ($guests as $guest) {
-		printf (
-			"\"%s\",\"%s\"\n",
-			$guest,
-			$registration->company
-		);
-	}
+    $guests = json_decode ($registration->attendees);
+    foreach ($guests as $guest) {
+        printf (
+            "\"%s\",\"%s\"\n",
+            $guest,
+            $registration->company
+        );
+    }
 }
-
-?>

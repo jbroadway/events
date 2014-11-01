@@ -15,7 +15,7 @@ layout = default
 event_layout = default
 
 ; Google Calendar link. Must be the XML feed of a public
-; calendar. For more information about changing your
+; calendar. for more information about changing your
 ; calendar settings, see:
 ; http://arshaw.com/fullcalendar/docs/google_calendar/
 
@@ -24,8 +24,7 @@ gcal_link = ""
 ; The payment handler for paid courses.
 payment_handler = ""
 
-; Whether to include this app in the list of pages
-; available to the Tools > Navigation tree.
+; Whether to include this app in the list of pages; available to the Tools > Navigation tree.
 
 include_in_nav = On
 

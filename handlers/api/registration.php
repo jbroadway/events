@@ -1,5 +1,3 @@
 <?php
 
-$this->restful (new events\API);
-
-?>
+$this->restful (new events\API());
