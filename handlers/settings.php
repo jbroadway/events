@@ -6,8 +6,6 @@
 
 $this->require_admin ();
 
-require_once 'apps/admin/lib/Functions.php';
-
 $page->layout = 'admin';
 $page->title = __ ('Events Settings');
 
@@ -15,7 +13,6 @@ $form = new Form ('post', $this);
 
 $form->data = array (
     'title' => $appconf['Events']['title'],
-    'layouts' => admin_get_layouts (),
     'layout' => $appconf['Events']['layout'],
     'event_layout' => $appconf['Events']['event_layout'],
     'gcal_link' => $appconf['Events']['gcal_link'],
