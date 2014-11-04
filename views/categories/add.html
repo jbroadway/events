@@ -1,0 +1,14 @@
+<div class="form">
+<form method="post" id="{{_form}}">
+
+<p>{"Category name"}:<br /><input type="text" name="name" size="60" value="{{ name|quotes }}" />
+<span class="notice" id="name-notice">{"You must enter a category name."}</span></p>
+
+<p>
+	<input type="submit" value="{"Add Category"}" class="autosave-clear" />&nbsp;
+	<a href="javascript:history.go(-1)" onclick="return $.cancel_autosave ('{'Are you sure you want to cancel and lose any changes?'}')">{"Cancel"}</a>
+</p>
+</form>
+
+</form>
+</div>
