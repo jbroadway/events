@@ -18,6 +18,10 @@
 	{% end %}
 </p>
 
+{% if thumbnail != '' %}
+<img src="{{thumbnail}}" class="event-thumbnail" align="left" style="margin-right: 15px; width: 150px; height: 150px" />
+{% end %}
+
 {% if ! has_passed %}
 	<div class="event-registration">
 	{% if available > 0 %}

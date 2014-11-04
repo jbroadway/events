@@ -1,16 +1,28 @@
+{! filemanager/util/browser !}
+
 <div class="form">
 
-<p class="autosave-notice">Auto-saved data found for this form. <a href="#" class="autosave-restore">Click here to restore.</a></p>
+<p class="autosave-notice">{"Auto-saved data found for this form."} <a href="#" class="autosave-restore">{"Click here to restore."}</a></p>
 
 <form method="POST" id="add-form">
-<p>Event title:<br /><input type="text" name="title" size="50" value="{{ title|quotes }}" />
-<span class="notice" id="title-notice">You must enter an event title.</span></p>
-<p>Date:
+
+<p>{"Event title"}:<br /><input type="text" name="title" size="60" value="{{ title|quotes }}" />
+<span class="notice" id="title-notice">{"You must enter an event title."}</span></p>
+
+<div id="thumbnail-div">
+	{"Thumbnail"}:<br />
+	<img src="{% if thumbnail == '' %}//:0{% else %}{{thumbnail|quotes}}{% end %}" id="thumbnail-preview" /><br />
+	<input type="hidden" name="thumbnail" id="thumbnail" size="40" value="{{ thumbnail|quotes }}" />
+	<input type="submit" id="thumbnail-browse" value="{"Choose"}" />
+</div>
+
+<p>{"Date"}:
 <input type="text" name="start_date" class="date" size="24" value="{{ start_date|quotes }}" />
-&nbsp; Ends: <input type="text" name="end_date" class="date" size="24" value="{{ end_date|quotes }}" />
+&nbsp; {"Ends"}: <input type="text" name="end_date" class="date" size="24" value="{{ end_date|quotes }}" />
 <br />
 <span class="notice" id="start_date-notice">{"You must enter a date."}</span></p>
-<p>Time:
+
+<p>{"Time"}:
 <select name="starts">
 	<option value="00:00:00"{% if starts == '00:00:00' %} selected{% end %}>12:00am</option>
 	<option value="00:30:00"{% if starts == '00:30:00' %} selected{% end %}>12:30am</option>
@@ -61,7 +73,7 @@
 	<option value="23:00:00"{% if starts == '23:00:00' %} selected{% end %}>11:00pm</option>
 	<option value="23:30:00"{% if starts == '23:30:00' %} selected{% end %}>11:30pm</option>
 </select>
-&nbsp; Ends:
+&nbsp; {"Ends"}:
 <select name="ends">
 	<option value="00:00:00"{% if ends == '00:00:00' %} selected{% end %}>12:00am</option>
 	<option value="00:30:00"{% if ends == '00:30:00' %} selected{% end %}>12:30am</option>
@@ -112,11 +124,20 @@
 	<option value="23:00:00"{% if ends == '23:00:00' %} selected{% end %}>11:00pm</option>
 	<option value="23:30:00"{% if ends == '23:30:00' %} selected{% end %}>11:30pm</option>
 </select></p>
+
+<p>{"Category"}: <select name="category">
+	<option value="">{"No category"}</option>
+{% foreach categories as _id, _name %}
+	<option value="{{_id}}"{% if _id == $data->category %} selected{% end %}>{{_name}}</option>
+{% end %}
+</select></p>
+
 <p>{"Details"}: <span class="notice" id="details-notice">{"You must enter event details."}</span><br />
 <textarea name="details" id="webpage-body" cols="90" rows="28">{{ details }}</textarea></p>
 
 <h4><a href="#" onclick="return webpage_show_extra_options (this)" class="extra-options-link"><span class="arrow arrow-off"></span>{"Extra Options"}</a></h4>
 <div id="extra-options">
+<p>{"Venue name"}:<br /><input type="text" name="venue" size="50" value="{{ venue|quotes }}" /></p>
 <p>{"Address"}:<br /><input type="text" name="address" size="50" value="{{ address|quotes }}" /></p>
 <p>{"City"}:<br /><input type="text" name="city" size="50" value="{{ city|quotes }}" /></p>
 <p>{"Contact"}:<br /><input type="text" name="contact" size="50" value="{{ contact|quotes }}" /></p>
@@ -131,7 +152,7 @@
 
 </div>
 <p>
-	<input type="submit" value="Add Event" class="autosave-clear" />&nbsp;
+	<input type="submit" value="{"Add Event"}" class="autosave-clear" />&nbsp;
 	<input type="submit" value="{"Preview"}" onclick="return webpage_preview (this.form)" />&nbsp;
 	<a href="javascript:history.go(-1)" onclick="return $.cancel_autosave ('{'Are you sure you want to cancel and lose any changes?'}')">{"Cancel"}</a>
 </p>
@@ -139,3 +160,37 @@
 
 </div>
 <div class="clear"></div>
+
+<style>
+#add-form {
+	position: relative;
+}
+#thumbnail-div {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 150px;
+}
+#thumbnail-preview {
+	width: 150px;
+	height: 100px;
+	margin-bottom: 5px;
+}
+</style>
+
+<script type="text/javascript">
+$(function () {
+	$('#thumbnail-browse').click (function (e) {
+		e.preventDefault ();
+		$.filebrowser ({
+			allowed: ['jpg', 'jpeg', 'png', 'gif'],
+			set_value: '#thumbnail',
+			title: "{"Choose an image"}",
+			thumbs: true,
+			callback: function (file) {
+				$('#thumbnail-preview').attr ('src', file);
+			}
+		});
+	});
+});
+</script>

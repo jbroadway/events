@@ -1,20 +1,64 @@
 <?php
 
+// keep unauthorized users out
+$this->require_acl ('admin', $this->app);
+
+// set the layout
 $page->layout = 'admin';
 
-if (! User::require_admin ()) {
-	header ('Location: /admin');
-	exit;
+// get the version and check if the app installed
+$version = Appconf::get ($this->app, 'Admin', 'version');
+$current = $this->installed ($this->app, $version);
+
+if ($current === true) {
+    // app is already installed and up-to-date, stop here
+    $page->title = __ ('Already up-to-date');
+    printf ('<p><a href="/%s/admin">%s</a>', $this->app, __ ('Home'));
+    return;
 }
 
-if ($this->installed ('events', $appconf['Admin']['version']) === true) {
-	$page->title = 'Already up-to-date';
-	echo '<p><a href="/">Home</a></p>';
-	return;
+$page->title = sprintf (
+    '%s: %s',
+    __ ('Upgrading App'),
+    Appconf::get ($this->app, 'Admin', 'name')
+);
+
+// grab the database driver
+$conn = conf ('Database', 'master');
+$driver = $conn['driver'];
+
+// check if upgrade script exists and if so, run it
+$base_version = preg_replace ('/-.*$/', '', $version);
+$file = 'apps/' . $this->app . '/conf/upgrade_' . $base_version . '_' . $driver . '.sql';
+if (file_exists ($file)) {
+    // begin the transaction
+    DB::beginTransaction ();
+
+    // parse the database schema into individual queries
+    $sql = sql_split (file_get_contents ($file));
+
+    // execute each query in turn
+    foreach ($sql as $query) {
+        if (! DB::execute ($query)) {
+            // show error and rollback on failures
+            printf (
+                '<p class="visible-notice">%s: %s</p><p>%s</p>',
+                __ ('Error'),
+                DB::error (),
+                __ ('Install failed.')
+            );
+            DB::rollback ();
+            return;
+        }
+    }
+
+    // commit the transaction
+    DB::commit ();
 }
 
-$page->title = 'Upgrading app: events';
+// add your upgrade logic here
 
+// migrate from event to #prefix#event table
 $prefix = conf ('Database', 'prefix');
 if ($prefix !== '') {
 	$res = DB::shift ('select count(*) from #prefix#event');
@@ -68,30 +112,9 @@ if ($prefix !== '') {
 	}
 }
 
-$res = DB::shift ('select count(*) from #prefix#event_registration');
-if ($res === false) {
-	$conn = conf ('Database', 'master');
-	$driver = $conn['driver'];
+// mark the new version installed
+$this->mark_installed ($this->app, $version);
 
-	DB::beginTransaction ();
-
-	$error = false;
-	$sqldata = sql_split (file_get_contents ('apps/events/conf/upgrade_1.0.4_' . $driver . '.sql'));
-	foreach ($sqldata as $sql) {
-		if (! DB::execute ($sql)) {
-			$error = DB::error ();
-			DB::rollback ();
-			echo '<p class="visible-notice">' . __ ('Error') . ': ' . $error . '</p>';
-			echo '<p>' . __ ('Install failed.') . '</p>';
-			return;
-		}
-	}
-	
-	DB::commit ();
-}
-
-echo '<p>Done.</p>';
-
-$this->mark_installed ('events', $appconf['Admin']['version']);
+printf ('<p><a href="/%s/admin">%s</a></p>', $this->app, __ ('Done.'));
 
 ?>

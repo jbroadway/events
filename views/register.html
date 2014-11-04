@@ -1,3 +1,5 @@
+<div id="event-timer" data-timer="{{timer}}"></div>
+
 {% if remaining <= 0 %}
 	<p class="event-sold-out"><strong>{"Sorry, this event is sold out."}</strong></p>
 {% else %}
@@ -51,6 +53,7 @@ $(function () {
 		inputs: '#event-inputs',
 		company_field: '#event-company',
 		attendee_inputs: '#event-attendee-inputs',
+		timer: '#event-timer',
 		event_id: {{id}},
 		remaining: {{remaining}},
 		price: {{price * 100}},
@@ -62,13 +65,21 @@ $(function () {
 			reserved_error: "{"Unable to make a reservation at this time. Please try again later."}",
 			attendees_error: "{"Please enter the names of each of the guests to continue."}",
 			updated_error: "{"An unexpected error occurred. Please try again later."}",
-			completed_error: "{"An unexpected error occurred. Please try again later."}"
+			completed_error: "{"An unexpected error occurred. Please try again later."}",
+			time_remaining: "{"Time remaining"}",
+			expired: "{"Registration expired."}",
+			start_over: "{"Start over."}"
 		}
 	});
 });
 </script>
 
 <style>
+#event-timer {
+	display: none;
+	float: right;
+}
+
 #event-error {
 	color: #900;
 	display: none;

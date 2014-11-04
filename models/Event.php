@@ -3,20 +3,22 @@
 /**
  * Fields:
  *
- * id
- * title
- * start_date
- * end_date
- * starts
- * ends
- * details
- * address
- * city
- * contact
- * email
- * phone
- * price
- * available
+ * - id
+ * - title
+ * - start_date
+ * - end_date
+ * - starts
+ * - ends
+ * - details
+ * - address
+ * - city
+ * - contact
+ * - email
+ * - phone
+ * - price
+ * - available
+ * - category
+ * - thumbnail
  */
 class Event extends Model {
 	public $table = '#prefix#event';

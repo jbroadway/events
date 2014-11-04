@@ -17,7 +17,9 @@ class API extends \Restful {
 		if ($registration->error) {
 			return $this->error ('Reservation failed');
 		}
-		return $registration->orig ();
+		$reg = $registration->orig ();
+		$reg->timer = strtotime ($reg->expires) - time ();
+		return $reg;
 	}
 
 	/**

@@ -1,9 +1,13 @@
 <p>
 	<a href="/events/add">{"Add Event"}</a>
 	&nbsp;|&nbsp;
-	<a href="/events/settings">{"Settings"}</a>
+	<a href="/events/categories">{"Categories"}</a>
+	{% if User::require_acl ('settings') %}
 	&nbsp;|&nbsp;
-	<a href="/events">{"View Calendar"}</a>
+	<a href="/events/settings">{"Settings"}</a>
+	{% end %}
+	&nbsp;|&nbsp;
+	<a href="/events/calendar">{"View Calendar"}</a>
 </p>
 
 {% if offset > 0 %}

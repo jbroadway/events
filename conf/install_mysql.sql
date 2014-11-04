@@ -13,7 +13,10 @@ create table #prefix#event (
 	phone char(48) not null,
 	price float not null default 0.0,
 	available int not null default 0,
-	index (start_date, starts, end_date)
+	category int not null default 0,
+	thumbnail char(128) not null default '',
+	index (start_date, starts, end_date),
+	index (category, start_date, starts, end_date)
 );
 
 create table #prefix#event_registration (
@@ -32,4 +35,10 @@ create table #prefix#event_registration (
 	index (event_id),
 	index (user_id),
 	index (ts)
+);
+
+create table #prefix#event_category (
+	id int not null auto_increment primary key,
+	name char(72) not null,
+	index (name)
 );

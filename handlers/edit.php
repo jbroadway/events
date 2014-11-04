@@ -24,6 +24,7 @@ if ($f->submit ()) {
 	$e->starts = $_POST['starts'];
 	$e->ends = $_POST['ends'];
 	$e->details = $_POST['details'];
+	$e->venue = $_POST['venue'];
 	$e->address = $_POST['address'];
 	$e->city = $_POST['city'];
 	$e->contact = $_POST['contact'];
@@ -31,6 +32,7 @@ if ($f->submit ()) {
 	$e->phone = $_POST['phone'];
 	$e->available = (! empty ($_POST['available'])) ? $_POST['available'] : 0;
 	$e->price = (! empty ($_POST['price'])) ? $_POST['price'] : 0;
+	$e->thumbnail = $_POST['thumbnail'];
 	$e->put ();
 	Versions::add ($e);
 	if (! $e->error) {
@@ -51,6 +53,10 @@ if ($f->submit ()) {
 	echo 'Error Message: ' . $e->error;
 } else {
 	$e->failed = $f->failed;
+	$e->categories = events\Category::query ()
+		->order ('name', 'asc')
+		->fetch_assoc ('id', 'name');
+
 	$e = $f->merge_values ($e);
 	$page->title = 'Edit Event: ' . $e->title;
 	$this->run ('admin/util/wysiwyg');

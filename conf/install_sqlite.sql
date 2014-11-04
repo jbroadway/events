@@ -12,10 +12,13 @@ create table #prefix#event (
 	email char(48) not null,
 	phone char(48) not null,
 	price float not null default 0.0,
-	available int not null default 0
+	available int not null default 0,
+	category int not null default 0,
+	thumbnail char(128) not null default ''
 );
 
 create index #prefix#event_date on #prefix#event (start_date, starts, end_date);
+create index #prefix#event_category_date on #prefix#event (category, start_date, starts, end_date);
 
 create table #prefix#event_registration (
 	id integer primary key,
@@ -35,3 +38,10 @@ create index #prefix#event_registration_status on #prefix#event_registration (st
 create index #prefix#event_registration_event_id on #prefix#event_registration (event_id);
 create index #prefix#event_registration_user_id on #prefix#event_registration (user_id);
 create index #prefix#event_registration_ts on #prefix#event_registration (ts);
+
+create table #prefix#event_category (
+	id integer primary key,
+	name char(72) not null
+);
+
+create index #prefix#event_category_name on #prefix#event_category (name);

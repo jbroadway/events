@@ -84,7 +84,16 @@ if ($e->price > 0 && $r !== false && isset ($this->params[1]) && $this->params[1
 	return;
 }
 
-echo $tpl->render ('events/register', $e->orig ());
+$data = $e->orig ();
+if ($r) {
+	$current = time ();
+	$expires = strtotime ($r->expires);
+	$data->timer = $expires - $current;
+} else {
+	$data->timer = 0;
+}
+
+echo $tpl->render ('events/register', $data);
 
 // housekeeping...
 events\Registration::clear_expired ($e->id);

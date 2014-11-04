@@ -10,6 +10,8 @@ var event_registration = (function ($) {
 	// enable/disable debugging output to the console
 	self.debug = false;
 	
+	self.timer_interval = null;
+	
 	// helper function to verify parameters
 	var _has = function (obj, prop) {
 		return obj.hasOwnProperty (prop);
@@ -78,10 +80,40 @@ var event_registration = (function ($) {
 
 		self.opts.reservation_id = res.data.id;
 
+		$(self.opts.timer).data ('timer', res.data.timer).show ();
+		self.timer_interval = setInterval (self.update_timer, 1000);
+
 		$(self.opts.subtotal).html ('$' + self.format_price (self.opts.price * res.data.num_attendees));
 
 		if (self.opts.num_attendees > 0) {
 			self.show_inputs ();
+		}
+	};
+	
+	self.update_timer = function () {
+		var timer = $(self.opts.timer),
+			remaining = timer.data ('timer');
+		
+		if (remaining > 1) {
+			remaining--;
+			timer.data ('timer', remaining);
+
+			var min = parseInt (remaining / 60),
+				sec = remaining % 60;
+
+			if (sec.toString ().length === 1) {
+				sec = "0" + sec.toString ();
+			}
+
+			timer.html (self.opts.strings.time_remaining + ": " + min + ':' + sec);
+		} else {
+			timer.html (
+				self.opts.strings.expired
+				+ '<br />'
+				+ '<a href="#" onclick="window.location.reload (true); return false">'
+				+ self.opts.strings.start_over
+				+ '</a>'
+			);
 		}
 	};
 	
