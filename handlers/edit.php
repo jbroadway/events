@@ -63,5 +63,3 @@ if ($f->submit ()) {
 	echo $tpl->render ('events/edit/head', $e);
 	echo $tpl->render ('events/edit', $e);
 }
-
-?>

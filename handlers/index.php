@@ -1,28 +1,29 @@
 <?php
 
 $page->add_style (sprintf (
-	'<link rel="alternate" type="application/rss+xml" href="http://%s/events/rss" />',
-	$_SERVER['HTTP_HOST']
+    '<link rel="alternate" type="application/rss+xml" href="http://%s/events/rss" />',
+    $_SERVER['HTTP_HOST']
 ));
 
 if (count ($this->params) > 0) {
-	$e = new Event ($this->params[0]);
-	if ($e->error) {
-		$page->title = __ ('Event not found');
-		printf ('<p><a href="/events">&laquo; %s</a></p>', __ ('Back'));
-		return;
-	}
+    $e = new Event ($this->params[0]);
+    if ($e->error) {
+        $page->title = __ ('Event not found');
+        printf ('<p><a href="/events">&laquo; %s</a></p>', __ ('Back'));
 
-	$page->id = 'events';
-	$page->title = $e->title;
-	$page->layout = $appconf['Events']['event_layout'];
-	$e->details = $tpl->run_includes ($e->details);
-	$e->remaining = $e->available ();
-	if ($e->end_date === '' || $e->end_date === '0000-00-00' || $e->end_date === $e->start_date) {
-		$e->end_date = false;
-	}
-	$e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
-	echo $tpl->render ('events/event', $e->orig ());
+        return;
+    }
+
+    $page->id = 'events';
+    $page->title = $e->title;
+    $page->layout = $appconf['Events']['event_layout'];
+    $e->details = $tpl->run_includes ($e->details);
+    $e->remaining = $e->available ();
+    if ($e->end_date === '' || $e->end_date === '0000-00-00' || $e->end_date === $e->start_date) {
+        $e->end_date = false;
+    }
+    $e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
+    echo $tpl->render ('events/event', $e->orig ());
 } else {
 	if (! $this->internal) {
 		$page->id = 'events';

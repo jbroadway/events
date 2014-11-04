@@ -7,28 +7,26 @@ $end = gmdate ('Y-m-d H:i:s', strtotime ($_GET['end']));
 
 $events = array ();
 $res = Event::query ()
-	->where ('start_date >= ?', $start)
-	->where ('end_date <= ?', $end)
-	->fetch_orig ();
+    ->where ('start_date >= ?', $start)
+    ->where ('end_date <= ?', $end)
+    ->fetch_orig ();
 
 foreach ($res as $row) {
-	$e = array (
-		'title' => $row->title,
-		'start' => $row->start_date . ' ' . $row->starts,
-		'allDay' => false,
-		'url' => '/events/' . $row->id . '/' . URLify::filter ($row->title),
-		'backgroundColor' => '#def',
-		'borderColor' => '#cde',
-		'textColor' => '#000'
-	);
-	if (! empty ($row->end_date)) {
-		$e['end'] = $row->end_date . ' ' . $row->ends;
-	}
-	$events[] = $e;
+    $e = array (
+        'title' => $row->title,
+        'start' => $row->start_date . ' ' . $row->starts,
+        'allDay' => false,
+        'url' => '/events/' . $row->id . '/' . URLify::filter ($row->title),
+        'backgroundColor' => '#def',
+        'borderColor' => '#cde',
+        'textColor' => '#000'
+    );
+    if (! empty ($row->end_date)) {
+        $e['end'] = $row->end_date . ' ' . $row->ends;
+    }
+    $events[] = $e;
 }
 
 header ('Content-Type: application/json');
 echo json_encode ($events);
 exit;
-
-?>
