@@ -12,10 +12,18 @@ if (! isset ($data['details']) || ($data['details'] !== 'no' && $data['details']
 
 $start = gmdate ('Y-m-d');
 
-$data['events'] = Event::query ()
-    ->where ('start_date >= "' . $start . '"')
-    ->order ('start_date', 'asc')
-    ->fetch_orig ($data['limit']);
+if (isset ($data['category']) && $data['category'] !== '') {
+	$data['events'] = Event::query ()
+		->where ('category', $data['category'])
+	    ->where ('start_date >= "' . $start . '"')
+	    ->order ('start_date', 'asc')
+	    ->fetch_orig ($data['limit']);
+} else {
+	$data['events'] = Event::query ()
+	    ->where ('start_date >= "' . $start . '"')
+	    ->order ('start_date', 'asc')
+	    ->fetch_orig ($data['limit']);
+}
 
 foreach ($data['events'] as $key => $event) {
     $data['events'][$key]->date = $event->start_date . ' ' . $event->starts;

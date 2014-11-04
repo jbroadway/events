@@ -6,10 +6,19 @@ $start = gmdate ('Y-m-d H:i:s', strtotime ($_GET['start']));
 $end = gmdate ('Y-m-d H:i:s', strtotime ($_GET['end']));
 
 $events = array ();
-$res = Event::query ()
-    ->where ('start_date >= ?', $start)
-    ->where ('end_date <= ?', $end)
-    ->fetch_orig ();
+
+if (isset ($_GET['category'])) {
+	$res = Event::query ()
+		->where ('category', $_GET['category'])
+	    ->where ('start_date >= ?', $start)
+	    ->where ('end_date <= ?', $end)
+	    ->fetch_orig ();
+} else {
+	$res = Event::query ()
+	    ->where ('start_date >= ?', $start)
+	    ->where ('end_date <= ?', $end)
+	    ->fetch_orig ();
+}
 
 foreach ($res as $row) {
     $e = array (

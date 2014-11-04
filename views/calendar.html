@@ -17,7 +17,7 @@ $(function () {
 			}
 		]
 		{% else %}
-		events: '/events/json'
+		events: '/events/json{% if category %}?category={{category}}{% end %}'
 		{% end %}
 	});
 });

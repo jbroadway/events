@@ -7,11 +7,11 @@ not empty = 1
 [layout]
 
 skip_if_empty = 1
-callback = admin_layout_exists
+callback = "admin\Layout::exists"
 
 [event_layout]
 
 skip_if_empty = 1
-callback = admin_layout_exists
+callback = "admin\Layout::exists"
 
 ; */ ?>

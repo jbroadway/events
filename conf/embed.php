@@ -4,9 +4,21 @@
 
 label = "Event Calendar"
 
+category[label] = Category
+category[type] = select
+category[initial] = ""
+category[require] = "apps/events/lib/Functions.php"
+category[callback] = "events_categories"
+
 [events/sidebar]
 
 label = "Event Listings"
+
+category[label] = Category
+category[type] = select
+category[initial] = ""
+category[require] = "apps/events/lib/Functions.php"
+category[callback] = "events_categories"
 
 limit[label] = Limit
 limit[type] = text
