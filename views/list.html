@@ -2,11 +2,11 @@
 {% foreach events %}
 	<div class="e-col-33 e-no-padding">
 		<div class="events-item">
-			{% if loop_value->thumbnail != '' %}
 			<div class="events-thumbnail-wrapper">
+			{% if loop_value->thumbnail != '' %}
 				<a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}"><div class="events-thumbnail" style="background-image: url({{loop_value->thumbnail}})"></div></a>
-			</div>
 			{% end %}
+			</div>
 			<div class="events-item-info">
 				<h4><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></h4>
 				<p class="events-item-date">{{ loop_value->start_date|events\Filter::shortdate }}{% if loop_value->end_date != '' %}-{{ loop_value->end_date|events\Filter::shortdate }}{% end %}</p>

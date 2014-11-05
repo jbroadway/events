@@ -1,5 +1,6 @@
 .events-item {
 	width: 95%;
+	margin-bottom: 20px;
 }
 .events-item-info {
 	-webkit-box-sizing: border-box;
@@ -7,8 +8,11 @@
 	box-sizing: border-box;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
+	margin: 0;
+	padding: 0;
 }
 .events-thumbnail-wrapper {
+	background-color: #ccc;
 	position: relative;
 	padding-bottom: 66%;
 	width: 100%;
