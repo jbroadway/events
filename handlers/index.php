@@ -5,7 +5,7 @@ $page->add_style (sprintf (
     $_SERVER['HTTP_HOST']
 ));
 
-if (count ($this->params) > 0) {
+if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
     $e = new Event ($this->params[0]);
     if ($e->error) {
         $page->title = __ ('Event not found');
@@ -30,19 +30,41 @@ if (count ($this->params) > 0) {
 		$page->title = __ ($appconf['Events']['title']);
 		$page->layout = $appconf['Events']['layout'];
 	}
+
+	$this->run ('admin/util/minimal-grid');
+	$page->add_style ('/apps/events/css/events.css');
+	
+	if (isset ($this->params[0]) && $this->params[0] === 'category') {
+		if (! isset ($this->params[1])) {
+			$this->redirect ('/events');
+		}
+		$category = $this->params[1];
+	} else {
+		$category = false;
+	}
 	
 	$data = array (
 		'limit' => 20,
 		'details' => 'yes',
-		'events' => array ()
+		'events' => array (),
+		'category' => $category,
+		'categories' => events\Category::query ()->order ('name', 'asc')->fetch_assoc ('id', 'name')
 	);
 
 	$start = gmdate ('Y-m-d');
 
-	$data['events'] = Event::query ()
-		->where ('start_date >= "' . $start . '"')
-		->order ('start_date', 'asc')
-		->fetch_orig ($data['limit']);
+	if ($category) {
+		$data['events'] = Event::query ()
+			->where ('category', $category)
+			->where ('start_date >= "' . $start . '"')
+			->order ('start_date', 'asc')
+			->fetch_orig ($data['limit']);
+	} else {
+		$data['events'] = Event::query ()
+			->where ('start_date >= "' . $start . '"')
+			->order ('start_date', 'asc')
+			->fetch_orig ($data['limit']);
+	}
 
 	foreach ($data['events'] as $key => $event) {
 		$data['events'][$key]->date = $event->start_date . ' ' . $event->starts;

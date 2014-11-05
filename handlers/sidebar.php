@@ -30,6 +30,8 @@ foreach ($data['events'] as $key => $event) {
 }
 
 if ($data['details'] === 'yes') {
+	$this->run ('admin/util/minimal-grid');
+	$page->add_style ('/apps/events/css/events.css');
     echo $tpl->render ('events/list', $data);
 } else {
     echo $tpl->render ('events/sidebar', $data);

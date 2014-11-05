@@ -37,15 +37,13 @@ namespace events;
  *     // clear expired registration reservations for an event
  *     events\Registration::clear_expired ($event->id);
  */
-class Registration extends \Model
-{
+class Registration extends \Model {
     public $table = '#prefix#event_registration';
 
     /**
 	 * Clear expired registration reservations for an event.
 	 */
-    public static function clear_expired($event_id)
-    {
+    public static function clear_expired ($event_id) {
         $r = new Registration();
         $res = \DB::execute (
             'delete from ' . self::backticks ($r->table)
@@ -67,8 +65,7 @@ class Registration extends \Model
     /**
 	 * Mark a registration as complete.
 	 */
-    public function complete($payment_id = 0)
-    {
+    public function complete ($payment_id = 0) {
         if (! isset ($this->data['id'])) {
             $this->error = 'Registration ID missing.';
 
@@ -84,8 +81,7 @@ class Registration extends \Model
     /**
 	 * Has the current registration reservation expired?
 	 */
-    public function expired()
-    {
+    public function expired () {
         if ($this->data['expires'] <= gmdate ('Y-m-d H:i:s')) {
             return true;
         }
@@ -98,8 +94,7 @@ class Registration extends \Model
 	 * number of attendees. You can optionally pass a User object
 	 * or it will default to `User::current ()`.
 	 */
-    public static function reserve($event_id, $num_attendees = 1, $user = null)
-    {
+    public static function reserve ($event_id, $num_attendees = 1, $user = null) {
         $user = $user ? $user : \User::current ();
 
         $r = Registration::query ()

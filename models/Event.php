@@ -20,16 +20,14 @@
  * - category
  * - thumbnail
  */
-class Event extends Model
-{
+class Event extends Model {
     public $table = '#prefix#event';
 
     /**
 	 * Return the number of available registrations for the current event.
 	 * Takes the registration reservations into account.
 	 */
-    public function available()
-    {
+    public function available () {
         if ($this->data['available'] == 0) {
             return $this->data['available'];
         }
@@ -51,8 +49,7 @@ class Event extends Model
 	 * array of event IDs. Does not calculate availability and does not
 	 * consider registrations that are in progress.
 	 */
-    public static function guests($ids)
-    {
+    public static function guests ($ids) {
         return DB::pairs (
             'select event_id, sum(num_attendees) from #prefix#event_registration
 			where event_id in(' . join (', ', $ids) . ')
@@ -64,8 +61,7 @@ class Event extends Model
     /**
 	 * Generate a list of pages for the sitemaps app.
 	 */
-    public static function sitemap()
-    {
+    public static function sitemap ()  {
         $events = Event::query ()
             ->where ('start_date >= "' . gmdate ('Y-m-01 00:00:00') . '"')
             ->where ('end_date <= "' . gmdate ('Y-m-t 23:59:59') . '"')
@@ -83,8 +79,7 @@ class Event extends Model
 	 * Generate a list of events for the search app,
 	 * and add them directly via `Search::add()`.
 	 */
-    public static function search()
-    {
+    public static function search ()  {
         $events = self::query ()
             ->fetch_orig ();
 

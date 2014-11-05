@@ -9,10 +9,19 @@ if (! $this->internal) {
 	$page->id = 'events';
 	$page->title = __ ($appconf['Events']['title']);
 	$page->layout = $appconf['Events']['layout'];
-	$category = isset ($this->params[0]) ? $this->params[0] : false;
+
+	if (isset ($this->params[0]) && $this->params[0] === 'category') {
+		if (! isset ($this->params[1])) {
+			$this->redirect ('/events');
+		}
+		$category = $this->params[1];
+	} else {
+		$category = false;
+	}
 } else {
 	$category = isset ($data['category']) ? $data['category'] : false;
 }
+
 $page->add_script ('/apps/events/js/fullcalendar/lib/moment.min.js');
 $page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
 $page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
@@ -26,7 +35,8 @@ echo $tpl->render (
 	'events/calendar',
 	array (
 		'gcal_link' => $appconf['Events']['gcal_link'],
-		'category' => $category
+		'category' => $category,
+		'categories' => events\Category::query ()->order ('name', 'asc')->fetch_assoc ('id', 'name')
 	)
 );
 

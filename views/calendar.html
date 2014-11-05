@@ -20,9 +20,34 @@ $(function () {
 		events: '/events/json{% if category %}?category={{category}}{% end %}'
 		{% end %}
 	});
+
+	$('#events-category').on ('change', function (e) {
+		e.preventDefault ();
+
+		var href = $(this).val ();
+		window.location.href = href;
+	});
 });
 </script>
-{% if User::require_acl ('admin', 'admin/add', 'events') %}
-<p><a href="/events/add">{"Add Event"}</a></p>
+
+<p style="float: right">
+	<select id="events-category">
+		<option value="/events/calendar">{"All Categories"}</option>
+	{% foreach categories as _category, _name %}
+		<option
+			value="/events/calendar/category/{{_category}}/{{_name|URLify::filter}}"
+			{% if _category == $data->category %}selected{% end %}
+		>{{_name}}</option>
+	{% end %}
+	</select>
+</p>
+
+<p>
+	<a href="/events{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"View List"}</a>
+	{% if User::require_acl ('admin', 'admin/add', 'events') %}
+	&nbsp;|&nbsp;
+	<a href="/events/add">{"Add Event"}</a>
 {% end %}
+</p>
+
 <div id="events-calendar"></div>
