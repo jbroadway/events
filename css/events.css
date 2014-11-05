@@ -14,6 +14,8 @@
 .events-thumbnail-wrapper {
 	background-color: #ccc;
 	position: relative;
+	margin: 0;
+	padding: 0;
 	padding-bottom: 66%;
 	width: 100%;
 	height: 0;
