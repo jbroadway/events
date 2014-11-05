@@ -3,9 +3,9 @@
 	<div class="e-col-33 e-no-padding">
 		<div class="events-item">
 			<div class="events-thumbnail-wrapper">
-			{% if loop_value->thumbnail != '' %}
-				<a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}"><div class="events-thumbnail" style="background-image: url({{loop_value->thumbnail}})"></div></a>
-			{% end %}
+				<a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">
+					<div class="events-thumbnail"{% if loop_value->thumbnail != '' %} style="background-image: url({{loop_value->thumbnail}})"{% end %}></div>
+				</a>
 			</div>
 			<div class="events-item-info">
 				<h4><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></h4>
