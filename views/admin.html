@@ -7,7 +7,7 @@
 	<a href="/events/settings">{"Settings"}</a>
 	{% end %}
 	&nbsp;|&nbsp;
-	<a href="/events/calendar">{"View Calendar"}</a>
+	<a href="/events">{"View Listings"}</a>
 </p>
 
 {% if offset > 0 %}
@@ -26,7 +26,7 @@
 	</tr>
 {% foreach events %}
 	<tr>
-		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}" target="_blank">{{ loop_value->title }}</a></td>
+		<td><a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">{{ loop_value->title }}</a></td>
 		<td>{{ loop_value->start_date|events\Filter::shortdaydate }}{% if loop_value->end_date %} - {{ loop_value->end_date|events\Filter::shortdaydate }}{% end %}</td>
 		<td>{{ loop_value->starts|events\Filter::time }}{% if loop_value->ends != '00:00:00' %} - {{ loop_value->ends|events\Filter::time }}{% end %}</td>
 		<td>{{ loop_value->category|events\Category::filter_name }}</td>

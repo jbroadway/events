@@ -13,7 +13,7 @@
 {% foreach categories as category %}
 	<tr>
 		<td>
-			<a href="/events/calendar/{{category->id}}/{{category->name|URLify::filter}}">{{category->name}}</a>
+			<a href="/events/category/{{category->id}}/{{category->name|URLify::filter}}">{{category->name}}</a>
 		</td>
 		<td style="text-align: right">
 			<a href="/events/categories/edit?id={{category->id}}">{"Edit"}</a>
