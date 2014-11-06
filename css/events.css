@@ -44,8 +44,7 @@
 	padding: 0px 10px 5px 10px;
 	margin: 0;
 }
-a.events-item-link,
-a#event-registration-link {
+a.events-item-link {
 	display: block;
 	background-color: #444;
 	color: #fff;
@@ -54,11 +53,40 @@ a#event-registration-link {
 	text-transform: uppercase;
 	text-decoration: none;
 }
-a.events-item-link:hover,
-a#event-registration-link:hover {
+a.events-item-link:hover {
 	background-color: #333;
 	text-decoration: none;
 }
 .events-summary>div:first-child {
-	padding-left: 0;
+	padding: 0;
+}
+.events-summary>div:last-child {
+	position: relative;
+}
+.events-summary-info {
+	padding: 10px;
+	background-color: #f5f5f5;
+}
+a#event-registration-link {
+	position: absolute;
+	bottom: 0;
+	display: block;
+	background-color: #444;
+	color: #fff;
+	padding: 3px;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	width: 100%;
+}
+a#event-registration-link:hover {
+	background-color: #333;
+	text-decoration: none;
+}
+#event-registration {
+	padding: 10px;
+	background-color: #eee;
+}
+.event-details {
+	padding-top: 10px;
 }

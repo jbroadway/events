@@ -18,8 +18,8 @@
 	{% end %}
 </p>
 
-<div class="events-summary e-row-variable">
-	<div class="e-col-40">
+<div class="events-summary e-row-equal">
+	<div class="e-col-40 e-no-padding">
 		<div class="events-thumbnail-wrapper">
 			<a href="/events/{{ id }}/{{ title|URLify::filter }}">
 				<div class="events-thumbnail"
@@ -32,8 +32,9 @@
 			</a>
 		</div>
 	</div>
-	<div class="e-col-60">
+	<div class="e-col-60 e-no-padding">
 
+		<div class="events-summary-info">
 <p class="events-date"><strong>{"Date"}:</strong> {{ start_date|events\Filter::date }}{% if end_date %} - {{ end_date|events\Filter::date }}{% end %}</p>
 
 <p class="events-time"><strong>{"Time"}:</strong> {{ starts|events\Filter::time }}{% if ends != '00:00:00' %} - {{ ends|events\Filter::time }}{% end %}</p>
@@ -47,13 +48,14 @@
 
 <p class="events-contact"><strong>{"Contact"}:</strong>
 {% if contact != '' %}
-	<a href="mailto:{{email}}">{{ contact }}</a>{% if phone != '' %}, <a href="tel: {{phone }}">{{ phone }}</a>{% end %}
+	<a href="mailto:{{email}}">{{ contact }}</a>{% if phone != '' %}, {{ phone }}{% end %}
 {% elseif email != '' %}
-	<a href="mailto:{{email}}">{{ email }}</a>{% if phone != '' %}, <a href="tel: {{phone }}">{{ phone }}</a>{% end %}
+	<a href="mailto:{{email}}">{{ email }}</a>{% if phone != '' %}, {{ phone }}{% end %}
 {% elseif phone != '' %}
 	<a href="tel: {{phone }}">{{ phone }}</a>
 {% end %}
 </p>
+		</div>
 
 {% if ! has_passed %}
 	<div class="event-registration">
