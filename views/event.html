@@ -22,29 +22,28 @@
 <div class="events-summary e-row-equal">
 	<div class="e-col-40 e-no-padding">
 		<div class="events-thumbnail-wrapper">
-			<a href="/events/{{ id }}/{{ title|URLify::filter }}">
-				<div class="events-thumbnail"
-					{% if thumbnail != '' %}
-						style="background-image: url({{thumbnail}})"
-					{% else %}
-						style="background-image: url(/apps/events/css/default.jpg)"
-					{% end %}
-				></div>
-			</a>
+			<div class="events-thumbnail"
+				{% if thumbnail != '' %}
+					style="background-image: url({{thumbnail}})"
+				{% else %}
+					style="background-image: url(/apps/events/css/default.jpg)"
+				{% end %}
+			></div>
 		</div>
 	</div>
-	<div class="e-col-60 e-no-padding">
+	<div class="events-summary-info e-col-60 e-no-padding">
 
-		<div class="events-summary-info">
+		<div class="events-summary-info-text">
 <p class="events-date"><strong>{"Date"}:</strong> {{ start_date|events\Filter::date }}{% if end_date %} - {{ end_date|events\Filter::date }}{% end %}</p>
 
 <p class="events-time"><strong>{"Time"}:</strong> {{ starts|events\Filter::time }}{% if ends != '00:00:00' %} - {{ ends|events\Filter::time }}{% end %}</p>
 
 {% if address != '' %}
-<p class="events-address"><strong>{"Where"}:</strong>
+<p class="events-address">
+<strong>{"Where"}:</strong>
 {% if venue != '' %}{{venue}}<br />{% end %}
-{{ address }}
-{% if city != '' %}<br />{{ city }}{% end %} <button id="show-map"><i class="fa fa-map-marker"></i> <span>{"show map"}</span></button><br />
+<a href="#" id="show-map" title="{"Show map"}">{{ address }}, {% if city != '' %}{{ city }}{% end %}</a>
+</p>
 {% end %}
 
 <p class="events-contact"><strong>{"Contact"}:</strong>
@@ -120,12 +119,11 @@ var events_toggle_map_status = false;
 function events_toggle_map (e) {
 	e.preventDefault ();
 
-	var link = $('#show-map'),
-		span = link.children ('span:first');
+	var link = $('#show-map');
 
 	if (! events_toggle_map_status) {
 		events_toggle_map_status = true;
-		$(span).html ('{"hide map"}');
+		//$(span).html ('{"hide map"}');
 		$('#event-map').slideDown (function () {
 			// resize and adjust the position of the map
 			for (var m = 0; m < my_maps.length; m++) {
@@ -141,7 +139,7 @@ function events_toggle_map (e) {
 		});
 	} else {
 		events_toggle_map_status = false;
-		$(span).html ('{"show map"}');
+		//$(span).html ('{"show map"}');
 		$('#event-map').slideUp ();
 	}
 	return false;
