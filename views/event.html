@@ -18,9 +18,42 @@
 	{% end %}
 </p>
 
-{% if thumbnail != '' %}
-<img src="{{thumbnail}}" class="event-thumbnail" align="left" style="margin-right: 15px; width: 150px; height: 150px" />
+<div class="events-summary e-row-variable">
+	<div class="e-col-40">
+		<div class="events-thumbnail-wrapper">
+			<a href="/events/{{ id }}/{{ title|URLify::filter }}">
+				<div class="events-thumbnail"
+					{% if thumbnail != '' %}
+						style="background-image: url({{thumbnail}})"
+					{% else %}
+						style="background-image: url(/apps/events/css/default.jpg)"
+					{% end %}
+				></div>
+			</a>
+		</div>
+	</div>
+	<div class="e-col-60">
+
+<p class="events-date"><strong>{"Date"}:</strong> {{ start_date|events\Filter::date }}{% if end_date %} - {{ end_date|events\Filter::date }}{% end %}</p>
+
+<p class="events-time"><strong>{"Time"}:</strong> {{ starts|events\Filter::time }}{% if ends != '00:00:00' %} - {{ ends|events\Filter::time }}{% end %}</p>
+
+{% if address != '' %}
+<p class="events-address"><strong>{"Where"}:</strong>
+{% if venue != '' %}{{venue}}<br />{% end %}
+{{ address }}
+{% if city != '' %}<br />{{ city }}{% end %} (<a href="#" onclick="return events_toggle_map (this)">{"show map"}</a>)<br />
 {% end %}
+
+<p class="events-contact"><strong>{"Contact"}:</strong>
+{% if contact != '' %}
+	<a href="mailto:{{email}}">{{ contact }}</a>{% if phone != '' %}, <a href="tel: {{phone }}">{{ phone }}</a>{% end %}
+{% elseif email != '' %}
+	<a href="mailto:{{email}}">{{ email }}</a>{% if phone != '' %}, <a href="tel: {{phone }}">{{ phone }}</a>{% end %}
+{% elseif phone != '' %}
+	<a href="tel: {{phone }}">{{ phone }}</a>
+{% end %}
+</p>
 
 {% if ! has_passed %}
 	<div class="event-registration">
@@ -30,16 +63,6 @@
 				<p class="event-registration-link"><a href="/events/register/{{id}}" id="event-registration-link">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
 			{% else %}
 				<p class="event-registration-link"><a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
-				<div id="event-registration" style="display: none">
-					<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
-						<h3>{"Already a member?"}</h3>
-						{! user/login?redirect=/events/register/[id] !}
-					</div>
-					<div style="display: inline-block; width: 45%; vertical-align: top">
-						<h3>{"Create a new account"}</h3>
-						{! user/signup?redirect=/events/register/[id] !}
-					</div>
-				</div>
 			{% end %}
 		{% else %}
 			<p class="event-sold-out"><strong>{"SOLD OUT"}</strong></p>
@@ -48,20 +71,24 @@
 	</div>
 {% end %}
 
-<p class="event-datetime"><strong>{"When"}:</strong><br />
-{{ start_date|events\Filter::date }}{% if end_date %} - {{ end_date|events\Filter::date }}{% end %}<br />
-{{ starts|events\Filter::time }}{% if ends != '00:00:00' %} - {{ ends|events\Filter::time }}{% end %}</p>
+	</div>
+</div>
 
-{% if address != '' %}
-<p class="event-address"><strong>{"Where"}:</strong><br />
-{{ address }}{% if city != '' %}, {{ city }}{% end %} (<a href="#" onclick="return events_toggle_map (this)">{"show map"}</a>)<br />
-<div id="event-map" style="display: none">{! social/google/maps?address=[address]&city=[city] !}</div></p>
+{% if $data->remaining > 0 && ! User::require_login () %}
+<div id="event-registration" style="display: none">
+	<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
+		<h3>{"Already a member?"}</h3>
+		{! user/login?redirect=/events/register/[id] !}
+	</div>
+	<div style="display: inline-block; width: 45%; vertical-align: top">
+		<h3>{"Create a new account"}</h3>
+		{! user/signup?redirect=/events/register/[id] !}
+	</div>
+</div>
 {% end %}
 
-{% if contact != '' || $data->email != '' || $data->phone != '' %}
-<p class="event-contact"><strong>{"Contact"}:</strong>{% if contact != '' %}<br />{{ contact }}{% end %}
-{% if email != '' %}<br /><a href="mailto: {{ email }}">{{ email }}</a>{% end %}
-{% if phone != '' %}<br /><a href="tel: {{phone }}">{{ phone }}</a>{% end %}</p>
+{% if address != '' %}
+<div id="event-map" style="display: none">{! social/google/maps?address=[address]&city=[city] !}</div></p>
 {% end %}
 
 <div class="event-details">{{ details|none }}</div>
