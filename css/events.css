@@ -1,3 +1,7 @@
+.events-list,
+#events-calendar {
+	margin-top: 10px;
+}
 .events-item {
 	width: 95%;
 	margin-bottom: 20px;

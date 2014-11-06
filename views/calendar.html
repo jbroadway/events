@@ -30,24 +30,25 @@ $(function () {
 });
 </script>
 
-<p style="float: right">
-	<select id="events-category">
-		<option value="/events/calendar">{"All Categories"}</option>
-	{% foreach categories as _category, _name %}
-		<option
-			value="/events/calendar/category/{{_category}}/{{_name|URLify::filter}}"
-			{% if _category == $data->category %}selected{% end %}
-		>{{_name}}</option>
-	{% end %}
-	</select>
-</p>
-
-<p>
-	<a href="/events{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"View List"}</a>
-	{% if User::require_acl ('admin', 'admin/add', 'events') %}
-	&nbsp;|&nbsp;
-	<a href="/events/add">{"Add Event"}</a>
-{% end %}
-</p>
+<div class="events-header e-row-variable">
+	<div class="e-col-50 e-no-padding">
+		<a href="/events{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"View List"}</a>
+		{% if User::require_acl ('admin', 'admin/add', 'events') %}
+			&nbsp;|&nbsp;
+			<a href="/events/add">{"Add Event"}</a>
+		{% end %}
+	</div>
+	<div class="e-col-50 e-no-padding" style="text-align: right">
+		<select id="events-category">
+			<option value="/events/calendar">{"All Categories"}</option>
+			{% foreach categories as _category, _name %}
+			<option
+				value="/events/calendar/category/{{_category}}/{{_name|URLify::filter}}"
+				{% if _category == $data->category %}selected{% end %}
+			>{{_name}}</option>
+		{% end %}
+		</select>
+	</div>
+</div>
 
 <div id="events-calendar"></div>

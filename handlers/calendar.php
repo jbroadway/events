@@ -22,6 +22,8 @@ if (! $this->internal) {
 	$category = isset ($data['category']) ? $data['category'] : false;
 }
 
+$this->run ('admin/util/minimal-grid');
+$page->add_script ('/apps/events/css/events.css');
 $page->add_script ('/apps/events/js/fullcalendar/lib/moment.min.js');
 $page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
 $page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
