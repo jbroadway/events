@@ -78,7 +78,7 @@
 
 {% if $data->remaining > 0 && ! User::require_login () %}
 <div id="event-registration" style="display: none">
-	<div style="display: inline-block; width: 45%; margin-right: 10px; vertical-align: top">
+	<div style="display: inline-block; width: 45%; margin-right: 25px; vertical-align: top">
 		<h3>{"Already a member?"}</h3>
 		{! user/login?redirect=/events/register/[id] !}
 	</div>
