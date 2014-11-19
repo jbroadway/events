@@ -1,0 +1,39 @@
+{! user/util/userchooser !}
+
+<div class="form">
+<form method="post" id="{{_form}}">
+
+<p>
+	{"Member"}:&nbsp;
+	<strong id="user-name">None</strong>
+	<button id="user-chooser">{"Choose"}</button>
+	<span class="notice" id="user-notice">{"Please choose a member to add."}</span>
+	<input type="hidden" name="user" id="user" value="{{user|quotes}}" />
+</p>
+
+<p>
+	{"Company (optional)"}:<br />
+	<input type="text" name="company" size="40" value="{{company|quotes}}" />
+</p>
+
+<p>
+	<button>{"Add Guest"}</button>
+	&nbsp;
+	<a href="/events/guests?id={{$_GET.id}}">{"Cancel"}</a>
+</p>
+
+</form>
+</div>
+
+<script>
+$(function () {
+	$('#user-chooser').click (function (e) {
+		e.preventDefault ();
+		
+		$.userchooser ({
+			set_id_value: '#user',
+			set_name_value: '#user-name'
+		});
+	});
+});
+</script>
