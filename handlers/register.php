@@ -76,6 +76,14 @@ if ($e->price > 0 && $r !== false && isset ($this->params[1]) && $this->params[1
                         'subject' => 'Event registration confirmation: ' . $e->title,
                         'text' => $tpl->render ('events/email/confirmation', $r)
                     ));
+            
+					$to = ! empty ($e->email) ? $e->email : conf ('General', 'email_from');
+
+					\Mailer::send (array (
+						'to' => $to,
+						'subject' => 'Event registration notification: ' . $e->title,
+						'text' => $tpl->render ('events/email/notification', $r)
+					));
                 } catch (Exception $e) {
                 }
 

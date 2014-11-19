@@ -127,6 +127,14 @@ class API extends \Restful
                 'subject' => 'Event registration confirmation: ' . $event->title,
                 'text' => $this->controller->template ()->render ('events/email/confirmation', $r)
             ));
+            
+            $to = ! empty ($event->email) ? $event->email : conf ('General', 'email_from');
+
+			\Mailer::send (array (
+				'to' => $to,
+				'subject' => 'Event registration notification: ' . $event->title,
+				'text' => $this->controller->template ()->render ('events/email/notification', $r)
+			));
         } catch (\Exception $e) {
         }
 
