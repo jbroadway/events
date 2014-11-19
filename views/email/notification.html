@@ -1,0 +1,22 @@
+This is a notice that you have received the following event registration:
+
+  {{event->title}} 
+  {{ event->start_date|events\Filter::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|events\Filter::date|strip_tags }}{% end %} 
+
+{{num_attendees}} Guests:
+
+{% foreach attendees as attendee %}
+  * {{ attendee }} 
+{% end %}
+
+{% if company != '' %}
+Company: {{ company }} 
+{% end %}
+{% if payment_id != 0 %}
+
+Order number:  {{ payment_id }} 
+Placed:        {{ ts|I18n::date_time|strip_tags }} 
+Fee per guest: ${{ event->price|number_format (%s, 2) }} 
+Guests:        {{ num_attendees }} 
+Total:         ${{ subtotal|number_format (%s, 2) }} 
+{% end %}
