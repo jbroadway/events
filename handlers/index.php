@@ -7,7 +7,7 @@ $page->add_style (sprintf (
 
 if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
     $e = new Event ($this->params[0]);
-    if ($e->error) {
+    if ($e->error || User::access ($e->access)) {
         $page->title = __ ('Event not found');
         printf ('<p><a href="/events">&laquo; %s</a></p>', __ ('Back'));
 
@@ -58,12 +58,24 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 
 	if ($category) {
 		$data['events'] = Event::query ()
+			->where (function ($q) {
+				$q->where ('access', 'public');
+				if (User::require_login ()) {
+					$q->or_where ('access', 'member');
+				}
+			})
 			->where ('category', $category)
 			->where ('start_date >= "' . $start . '"')
 			->order ('start_date', 'asc')
 			->fetch_orig ($data['limit']);
 	} else {
 		$data['events'] = Event::query ()
+			->where (function ($q) {
+				$q->where ('access', 'public');
+				if (User::require_login ()) {
+					$q->or_where ('access', 'member');
+				}
+			})
 			->where ('start_date >= "' . $start . '"')
 			->order ('start_date', 'asc')
 			->fetch_orig ($data['limit']);

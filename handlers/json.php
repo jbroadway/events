@@ -9,12 +9,24 @@ $events = array ();
 
 if (isset ($_GET['category'])) {
 	$res = Event::query ()
+		->where (function ($q) {
+			$q->where ('access', 'public');
+			if (User::require_login ()) {
+				$q->or_where ('access', 'member');
+			}
+		})
 		->where ('category', $_GET['category'])
 	    ->where ('start_date >= ?', $start)
 	    ->where ('end_date <= ?', $end)
 	    ->fetch_orig ();
 } else {
 	$res = Event::query ()
+		->where (function ($q) {
+			$q->where ('access', 'public');
+			if (User::require_login ()) {
+				$q->or_where ('access', 'member');
+			}
+		})
 	    ->where ('start_date >= ?', $start)
 	    ->where ('end_date <= ?', $end)
 	    ->fetch_orig ();

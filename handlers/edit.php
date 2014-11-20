@@ -34,6 +34,7 @@ if ($f->submit ()) {
 	$e->price = (! empty ($_POST['price'])) ? $_POST['price'] : 0;
 	$e->thumbnail = $_POST['thumbnail'];
 	$e->category = $_POST['category'];
+	$e->access = $_POST['access'];
 	$e->put ();
 	Versions::add ($e);
 	if (! $e->error) {

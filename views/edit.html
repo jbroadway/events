@@ -150,6 +150,13 @@
 <p>{"Price (optional)"}:<br />$<input type="text" name="price" size="9" value="{{ price|quotes }}" />
 <span class="notice" id="price-notice">{"Please enter a valid price"} (ex: 123.45)</span></p>
 
+<p>{"Access"}:<br />
+<select name="access">
+{% foreach User::access_list () %}
+	<option value="{{ loop_index }}"{% if access === $data->loop_index %} selected{% end %}>{{ loop_value }}</option>
+{% end %}
+</select></p>
+
 </div>
 <p>
 	<input type="submit" value="{"Save Event"}" class="autosave-clear" />&nbsp;

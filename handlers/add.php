@@ -35,6 +35,7 @@ if ($f->submit ()) {
 	$e->ends = '20:00:00';
 	$e->available = 0;
 	$e->price = '0.00';
+	$e->access = 'public';
 	$e->categories = events\Category::query ()
 		->order ('name', 'asc')
 		->fetch_assoc ('id', 'name');
