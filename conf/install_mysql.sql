@@ -1,6 +1,6 @@
 create table #prefix#event (
 	id int not null auto_increment primary key,
-	title char(48) not null,
+	title char(72) not null,
 	start_date date not null,
 	end_date date not null,
 	starts time not null,
@@ -15,8 +15,10 @@ create table #prefix#event (
 	available int not null default 0,
 	category int not null default 0,
 	thumbnail char(128) not null default '',
-	index (start_date, starts, end_date),
-	index (category, start_date, starts, end_date)
+	venue char(48) not null default '',
+	access enum('public','member','private') not null default 'public',
+	index (access, start_date, starts, end_date),
+	index (access, category, start_date, starts, end_date)
 );
 
 create table #prefix#event_registration (

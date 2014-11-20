@@ -1,6 +1,6 @@
 create table #prefix#event (
 	id integer primary key,
-	title char(48) not null,
+	title char(72) not null,
 	start_date date not null,
 	end_date date not null,
 	starts time not null,
@@ -14,11 +14,13 @@ create table #prefix#event (
 	price float not null default 0.0,
 	available int not null default 0,
 	category int not null default 0,
-	thumbnail char(128) not null default ''
+	thumbnail char(128) not null default '',
+	venue char(48) not null default '',
+	acccess char(12) not null default 'public'
 );
 
-create index #prefix#event_date on #prefix#event (start_date, starts, end_date);
-create index #prefix#event_category_date on #prefix#event (category, start_date, starts, end_date);
+create index #prefix#event_date on #prefix#event (access, start_date, starts, end_date);
+create index #prefix#event_category_date on #prefix#event (access, category, start_date, starts, end_date);
 
 create table #prefix#event_registration (
 	id integer primary key,
