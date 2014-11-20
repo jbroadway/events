@@ -31,9 +31,9 @@ foreach ($events as $k => $e) {
 $page->title = i18n_get ('Events');
 echo $tpl->render ('events/admin', array (
     'events' => $events,
-    'count' => $count,
+    'limit' => $limit,
+    'total' => $count,
     'offset' => $_GET['offset'],
-    'more' => ($count > $_GET['offset'] + $limit) ? true : false,
-    'prev' => $_GET['offset'] - $limit,
-    'next' => $_GET['offset'] + $limit
+    'count' => count ($events),
+    'url' => '/events/admin?offset=%d'
 ));
