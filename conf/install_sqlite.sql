@@ -16,7 +16,7 @@ create table #prefix#event (
 	category int not null default 0,
 	thumbnail char(128) not null default '',
 	venue char(48) not null default '',
-	acccess char(12) not null default 'public'
+	access char(12) not null default 'public'
 );
 
 create index #prefix#event_date on #prefix#event (access, start_date, starts, end_date);
