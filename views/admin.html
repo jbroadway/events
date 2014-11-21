@@ -1,4 +1,7 @@
-<p>
+{! admin/util/minimal-grid !}
+
+<div class="e-row-variable" style="margin-bottom: 20px">
+	<div class="e-col-50 e-no-padding">
 	<a href="/events/add">{"Add Event"}</a>
 	&nbsp;|&nbsp;
 	<a href="/events/import">{"Import Events"}</a>
@@ -10,19 +13,29 @@
 	{% end %}
 	&nbsp;|&nbsp;
 	<a href="/events">{"View Listings"}</a>
-</p>
-
-<p style="float: left">
-{! navigation/pager?style=results&url=[url]&total=[total]&count=[count]&limit=[limit] !}
-</p>
-
-{% if total > $data->limit %}
-<div style="float: right">
-{! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}
+	</div>
+	<div class="e-col-50 e-no-padding" style="text-align: right">
+		<form method="get">
+			<input type="text" name="q" size="40" value="{{q|quotes}}" />
+			<button>{"Search"}</button>
+			{% if q != '' %}
+			<button onclick="window.location.href = '/events/admin'; return false">{"Clear"}</button>
+			{% end %}
+		</form>
+	</div>
 </div>
-{% end %}
 
-<p>
+<div class="e-row-variable">
+	<div class="e-col-50 e-no-padding">
+		{! navigation/pager?style=results&url=[url]&total=[total]&count=[count]&limit=[limit] !}
+	</div>
+	<div class="e-col-50 e-no-padding" style="text-align: right">
+		{% if total > $data->limit %}
+		{! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}
+		{% end %}
+	</div>
+</div>
+
 <table width="100%">
 	<tr>
 		<th width="25%">{"Title"}</th>
@@ -55,7 +68,6 @@
 	</tr>
 {% end %}
 </table>
-</p>
 
 {% if total > $data->limit %}
 {! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}

@@ -80,6 +80,8 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 			->order ('start_date', 'asc')
 			->fetch_orig ($data['limit']);
 	}
+	
+	$data['events'] = is_array ($data['events']) ? $data['events'] : array ();
 
 	foreach ($data['events'] as $key => $event) {
 		$data['events'][$key]->date = $event->start_date . ' ' . $event->starts;
