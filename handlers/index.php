@@ -7,7 +7,7 @@ $page->add_style (sprintf (
 
 if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
     $e = new Event ($this->params[0]);
-    if ($e->error || User::access ($e->access)) {
+    if ($e->error || ! User::access ($e->access)) {
         $page->title = __ ('Event not found');
         printf ('<p><a href="/events">&laquo; %s</a></p>', __ ('Back'));
 
