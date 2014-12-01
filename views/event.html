@@ -24,7 +24,7 @@
 		<div class="events-thumbnail-wrapper">
 			<div class="events-thumbnail"
 				{% if thumbnail != '' %}
-					style="background-image: url('{{thumbnail|Image::resize (%s, 600, 450, 'cover', 'ext')}}')"
+					style="background-image: url('/{{thumbnail|Image::resize (%s, 600, 450, 'cover', 'ext')}}')"
 				{% else %}
 					style="background-image: url(/apps/events/css/default.jpg)"
 				{% end %}
