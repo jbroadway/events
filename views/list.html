@@ -6,7 +6,7 @@
 				<a href="/events/{{ loop_value->id }}/{{ loop_value->title|URLify::filter }}">
 					<div class="events-thumbnail"
 						{% if loop_value->thumbnail != '' %}
-							style="background-image: url('{{loop_value->thumbnail}}')"
+							style="background-image: url('{{loop_value->thumbnail|Image::resize (%s, 400, 300, 'cover', 'ext')}}')"
 						{% else %}
 							style="background-image: url(/apps/events/css/default.jpg)"
 						{% end %}
