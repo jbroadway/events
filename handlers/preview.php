@@ -20,6 +20,10 @@ if ($e->end_date === '' || $e->end_date === '0000-00-00' || $e->end_date === $e-
 	$e->end_date = false;
 }
 $e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
+
+$this->run ('admin/util/minimal-grid');
+$page->add_style ('/apps/events/css/events.css');
+
 echo $tpl->render ('events/event', $e->orig ());
 
 ?>
