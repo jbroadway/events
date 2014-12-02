@@ -6,7 +6,10 @@ $this->require_acl ('admin', 'events');
 
 $limit = 20;
 $_GET['offset'] = (isset ($_GET['offset'])) ? $_GET['offset'] : 0;
+$c = isset ($_GET['c']) ? $_GET['c'] : '';
 $q = isset ($_GET['q']) ? $_GET['q'] : '';
+$q_fields = array ('title', 'details', 'venue', 'address', 'city', 'contact', 'email');
+$q_exact = array ();
 $url = ! empty ($q)
 	? '/events/admin?q=' . urlencode ($q) . '&offset=%d'
 	: '/events/admin?offset=%d';
@@ -14,12 +17,26 @@ $url = ! empty ($q)
 $lock = new Lock ();
 
 $events = Event::query ('id, title, start_date, end_date, starts, ends, category, available')
-	->where_search ($q, array ('title', 'details', 'venue', 'address', 'city', 'contact', 'email'))
+	->where_search ($q, $q_fields, $q_exact)
+	->and_where (function ($q) use ($c) {
+		if ($c !== '') {
+			$q->where ('category', $c);
+		} else {
+			$q->where ('1 = 1');
+		}
+	})
     ->order ('start_date desc')
     ->fetch_orig ($limit, $_GET['offset']);
 
 $count = Event::query ()
-	->where_search ($q, array ('title', 'details', 'venue', 'address', 'city', 'contact', 'email'))
+	->where_search ($q, $q_fields, $q_exact)
+	->and_where (function ($q) use ($c) {
+		if ($c !== '') {
+			$q->where ('category', $c);
+		} else {
+			$q->where ('1 = 1');
+		}
+	})
 	->count ();
 
 $ids = array ();
@@ -45,5 +62,9 @@ echo $tpl->render ('events/admin', array (
     'offset' => $_GET['offset'],
     'count' => count ($events),
 	'url' => $url,
-	'q' => $q
+	'q' => $q,
+	'c' => $c,
+	'categories' => events\Category::query ()
+		->order ('name', 'asc')
+		->fetch_assoc ('id', 'name')
 ));

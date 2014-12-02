@@ -55,7 +55,7 @@ class Filter
     {
         $d = strtotime ($d);
 
-        return self::day (gmdate ('D', $d)) . ', ' . self::mon (gmdate ('M', $d)) . ' ' . gmdate ('j', $d);
+        return self::day (gmdate ('D', $d)) . ', ' . self::mon (gmdate ('M', $d)) . ' ' . gmdate ('j, Y', $d);
     }
 
     public static function date($d)

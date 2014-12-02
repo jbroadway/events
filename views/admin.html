@@ -1,4 +1,7 @@
 {! admin/util/minimal-grid !}
+{! admin/util/search !}
+
+<form method="get" id="search-form">
 
 <div class="e-row-variable" style="margin-bottom: 20px">
 	<div class="e-col-50 e-no-padding">
@@ -15,13 +18,11 @@
 	<a href="/events">{"View Listings"}</a>
 	</div>
 	<div class="e-col-50 e-no-padding" style="text-align: right">
-		<form method="get">
-			<input type="text" name="q" size="40" value="{{q|quotes}}" />
+			<input type="text" name="q" id="search-query" size="40" value="{{q|quotes}}" />
 			<button>{"Search"}</button>
 			{% if q != '' %}
 			<button onclick="window.location.href = '/events/admin'; return false">{"Clear"}</button>
 			{% end %}
-		</form>
 	</div>
 </div>
 
@@ -41,7 +42,16 @@
 		<th width="25%">{"Title"}</th>
 		<th width="20%">{"Date"}</th>
 		<th width="15%">{"Time"}</th>
-		<th width="15%">{"Category"}</th>
+		<th width="15%">
+			<select name="c" id="search-category">
+				<option value="">{"Category"}</option>
+				{% foreach categories as _cat, _name %}
+				<option value="{{_cat}}"
+					{% if c == $data->_cat %}selected{% end %}
+				>{{_name}}</option>
+				{% end %}
+			</select>
+		</th>
 		<th width="10%" style="text-align: right">{"Guests"}</th>
 		<th width="15%">&nbsp;</th>
 	</tr>
@@ -69,6 +79,25 @@
 {% end %}
 </table>
 
+</form>
+
 {% if total > $data->limit %}
 {! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}
 {% end %}
+
+<script>
+$(function () {
+	$.search_init ({
+		form: '#search-form',
+		query: '#search-query',
+		links: '.search-for',
+		options: '.search-option'
+	});
+
+	$('#search-category').change (function (e) {
+		e.preventDefault ();
+		
+		$('#search-form').submit ();
+	});
+});
+</script>
