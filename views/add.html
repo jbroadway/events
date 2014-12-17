@@ -141,8 +141,8 @@
 <p>{"Details"}: <span class="notice" id="details-notice">{"You must enter event details."}</span><br />
 <textarea name="details" id="webpage-body" cols="90" rows="28">{{ details }}</textarea></p>
 
-<h4><a href="#" onclick="return webpage_show_extra_options (this)" class="extra-options-link"><span class="arrow arrow-off"></span>{"Extra Options"}</a></h4>
-<div id="extra-options">
+<h4>{"Extra Options"}</h4>
+
 <p>{"Venue name"}:<br /><input type="text" name="venue" size="50" value="{{ venue|quotes }}" /></p>
 <p>{"Address"}:<br /><input type="text" name="address" size="50" value="{{ address|quotes }}" /></p>
 <p>{"City"}:<br /><input type="text" name="city" size="50" value="{{ city|quotes }}" /></p>
@@ -163,7 +163,6 @@
 {% end %}
 </select></p>
 
-</div>
 <p>
 	<input type="submit" value="{"Add Event"}" class="autosave-clear" />&nbsp;
 	<input type="submit" value="{"Preview"}" onclick="return webpage_preview (this.form)" />&nbsp;
