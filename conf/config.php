@@ -14,12 +14,15 @@ layout = default
 
 event_layout = default
 
-; Google Calendar link. Must be the XML feed of a public
-; calendar. for more information about changing your
-; calendar settings, see:
-; http://arshaw.com/fullcalendar/docs/google_calendar/
+; Google Calendar ID. For more info, see:
+; http://fullcalendar.io/docs/google_calendar/
 
-gcal_link = ""
+gcal_id = ""
+
+; Google Calendar API browser key. For more info, see:
+; http://fullcalendar.io/docs/google_calendar/
+
+gcal_browser_key = ""
 
 ; The payment handler for paid courses.
 payment_handler = ""

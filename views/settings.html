@@ -20,9 +20,6 @@
 {% end %}
 </select></p>
 
-<p>{"Google Calendar XML feed (optional)"}:<br />
-<input type="text" name="gcal_link" size="40" value="{{ gcal_link|quotes }}" /></p>
-
 <p>{"Payment handler"}:<br />
 <select name="payment_handler">
 	<option value="">{"None"}</option>
@@ -31,6 +28,16 @@
 	{% end %}
 </select>
 </p>
+
+<h4>{"Google Calendar Integration"}</h4>
+
+<p><a href="http://fullcalendar.io/docs/google_calendar/" target="_blank">{"Click here for setup instructions."}</a></p>
+
+<p>{"Calendar ID"}:<br />
+<input type="text" name="gcal_id" size="40" value="{{ gcal_id|quotes }}" /></p>
+
+<p>{"Google API Key"}:<br />
+<input type="text" name="gcal_browser_key" size="40" value="{{ gcal_browser_key|quotes }}" /></p>
 
 <p>
 	<input type="submit" value="{"Save Settings"}" />

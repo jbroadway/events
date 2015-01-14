@@ -36,7 +36,8 @@ if (file_exists ('apps/events/js/fullcalendar/lang/' . $i18n->language . '.js'))
 echo $tpl->render (
 	'events/calendar',
 	array (
-		'gcal_link' => $appconf['Events']['gcal_link'],
+		'gcal_id' => $appconf['Events']['gcal_id'],
+		'gcal_browser_key' => $appconf['Events']['gcal_browser_key'],
 		'category' => $category,
 		'categories' => events\Category::query ()->order ('name', 'asc')->fetch_assoc ('id', 'name')
 	)

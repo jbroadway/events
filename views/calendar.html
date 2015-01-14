@@ -1,25 +1,37 @@
 <script>
 $(function () {
-	$('#events-calendar').fullCalendar ({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,basicWeek'
-		},
-		editable: false,
-		lang: '{{i18n.language}}',
-		{% if gcal_link %}
-		eventSources: [
-			'/events/json',
-			{
-				url: '{{gcal_link}}',
-				className: 'gcal-event'
-			}
-		]
-		{% else %}
-		events: '/events/json{% if category %}?category={{category}}{% end %}'
-		{% end %}
-	});
+	function events_calendar_init () {
+		if (typeof $.fullCalendar === 'undefined') {
+			setTimeout (events_calendar_init, 50);
+			return;
+		}
+
+		$('#events-calendar').fullCalendar ({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek'
+			},
+			editable: false,
+			lang: '{{i18n.language}}',
+			{% if gcal_browser_key %}
+			googleCalendarApiKey: '{{gcal_browser_key}}',
+			{% end %}
+			{% if gcal_id %}
+			eventSources: [
+				'/events/json',
+				{
+					googleCalendarId: '{{gcal_id}}',
+					className: 'gcal-event'
+				}
+			]
+			{% else %}
+			events: '/events/json{% if category %}?category={{category}}{% end %}'
+			{% end %}
+		});
+	}
+	
+	events_calendar_init ();
 
 	$('#events-category').on ('change', function (e) {
 		e.preventDefault ();

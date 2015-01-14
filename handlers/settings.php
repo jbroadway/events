@@ -15,7 +15,8 @@ $form->data = array (
     'title' => $appconf['Events']['title'],
     'layout' => $appconf['Events']['layout'],
     'event_layout' => $appconf['Events']['event_layout'],
-    'gcal_link' => $appconf['Events']['gcal_link'],
+    'gcal_id' => $appconf['Events']['gcal_id'],
+    'gcal_browser_key' => $appconf['Events']['gcal_browser_key'],
     'payment_handler' => $appconf['Events']['payment_handler'],
     'payment_handlers' => events\App::payment_handlers ()
 );
@@ -26,7 +27,8 @@ echo $form->handle (function ($form) {
             'title' => $_POST['title'],
             'layout' => $_POST['layout'],
             'event_layout' => $_POST['event_layout'],
-            'gcal_link' => $_POST['gcal_link'],
+            'gcal_id' => $_POST['gcal_id'],
+            'gcal_browser_key' => $_POST['gcal_browser_key'],
             'payment_handler' => $_POST['payment_handler']
         )
     ));
