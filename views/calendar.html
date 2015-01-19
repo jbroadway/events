@@ -22,6 +22,7 @@ $(function () {
 				'/events/json',
 				{
 					googleCalendarId: '{{gcal_id}}',
+					googleCalendarError: function(e){console.log(e);},
 					className: 'gcal-event'
 				}
 			]
