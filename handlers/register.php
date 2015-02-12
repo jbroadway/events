@@ -79,15 +79,15 @@ if ($e->price > 0 && $r !== false && isset ($this->params[1]) && $this->params[1
             
 					$to = ! empty ($e->email) ? $e->email : conf ('General', 'email_from');
 
-					\Mailer::send (array (
+					Mailer::send (array (
 						'to' => $to,
 						'subject' => 'Event registration notification: ' . $e->title,
 						'text' => $tpl->render ('events/email/notification', $r)
 					));
-                } catch (Exception $e) {
+                } catch (\Exception $exception) {
                 }
 
-                $c->redirect ('/events/registered/' . $e->id . '/' . $r->id);
+				$c->redirect ('/events/registered/' . $e->id . '/' . $r->id);
             }
         )
     );
