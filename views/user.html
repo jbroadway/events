@@ -1,9 +1,13 @@
-<p><b>{"Attended"}:</b></p>
+{% if count ($data->events) == 0 %}
+<p><b>{"No events attended."}</b></p>
+{% else %}
+<p><b>{"Events attended"}:</b></p>
 
 <ul>
 {% foreach events as event %}
 	<li><a href="/events/{{event->id}}/{{event->title|URLify::filter}}">{{event->title}}</a></li>
 {% end %}
 </ul>
+{% end %}
 
 <p><a href="/events/admin">{"All events"}</a></p>
