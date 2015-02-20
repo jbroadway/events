@@ -27,7 +27,7 @@ $page->add_script ('/apps/events/css/events.css');
 $page->add_script ('/apps/events/js/fullcalendar/lib/moment.min.js');
 $page->add_script ('/apps/events/js/fullcalendar/fullcalendar.min.js');
 $page->add_style ('/apps/events/js/fullcalendar/fullcalendar.css');
-if (strlen ($appconf['Events']['gcal_link']) > 0) {
+if (strlen ($appconf['Events']['gcal_browser_key']) > 0) {
 	$page->add_script ('/apps/events/js/fullcalendar/gcal.js');
 }
 if (file_exists ('apps/events/js/fullcalendar/lang/' . $i18n->language . '.js')) {
