@@ -99,4 +99,16 @@ class Event extends Model {
 
         return array (true, count ($events));
     }
+	
+	/**
+	 * Get attended events by user.
+	 */
+	public static function by_user ($user) {
+		return self::query ('e.id, e.title')
+			->from ('#prefix#event e, #prefix#event_registration r')
+			->where ('r.event_id = e.id')
+			->where ('r.user_id', $user)
+			->order ('e.title', 'asc')
+			->fetch_orig ();
+	}
 }

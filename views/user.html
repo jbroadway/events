@@ -1,0 +1,9 @@
+<p><b>{"Attended"}:</b></p>
+
+<ul>
+{% foreach events as event %}
+	<li><a href="/events/{{event->id}}/{{event->title|URLify::filter}}">{{event->title}}</a></li>
+{% end %}
+</ul>
+
+<p><a href="/events/admin">{"All events"}</a></p>

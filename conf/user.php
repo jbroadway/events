@@ -1,0 +1,5 @@
+; <?php /*
+
+events/user = Events
+
+; */ ?>
