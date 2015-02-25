@@ -23,15 +23,17 @@ header ('Cache-control: private');
 header ('Content-Type: text/plain');
 header ('Content-Disposition: attachment; filename=' . URLify::filter ($event->title) . '-' . $event->start_date . '.csv');
 
-echo "\"Guest name\",\"Company name\"\n";
+echo "\"Guest name\",\"Company name\",\"Status\",\"Notes\"\n";
 
 foreach ($reg as $registration) {
     $guests = json_decode ($registration->attendees);
     foreach ($guests as $guest) {
         printf (
-            "\"%s\",\"%s\"\n",
+            "\"%s\",\"%s\",\"%s\",\"%s\"\n",
             $guest,
-            $registration->company
+            $registration->company,
+            events\Filter::status ($registration->status),
+            $registration->notes
         );
     }
 }

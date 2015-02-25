@@ -27,7 +27,8 @@ echo $form->handle (function ($form) use ($event, $page, $tpl) {
 		'expires' => gmdate ('Y-m-d H:i:s'),
 		'num_attendees' => 1,
 		'attendees' => json_encode (array (User::field ($_POST['user'], 'name'))),
-		'company' => $_POST['company']
+		'company' => $_POST['company'],
+		'notes' => $_POST['notes']
 	));
 	$reg->put ();
 	if ($reg->error) {

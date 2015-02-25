@@ -32,7 +32,8 @@ create table #prefix#event_registration (
 	expires datetime not null,
 	num_attendees int not null,
 	attendees text not null,
-	company char(72) not null
+	company char(72) not null,
+	notes char(255) not null default ''
 );
 
 create index #prefix#event_registration_attendees on #prefix#event_registration (event_id, num_attendees, status, expires);

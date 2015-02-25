@@ -10,7 +10,7 @@ namespace events;
  * user_id
  * payment_id
  * ts
- * status (0 = pending, 1 = complete)
+ * status (-1 = cancelled, 0 = pending, 1 = complete, 2 = attended)
  * expires
  * num_attendees
  * attendees

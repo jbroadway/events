@@ -18,18 +18,15 @@ $event->guests = array ();
 
 $reg = events\Registration::query ()
     ->where ('event_id', $event->id)
-    ->where ('status', 1)
+    ->where ('status != 0')
+    ->order ('status', 'desc')
     ->fetch_orig ();
 
-foreach ($reg as $registration) {
-    $guests = json_decode ($registration->attendees);
-    foreach ($guests as $guest) {
-        $event->guests[] = (object) array (
-            'name' => $guest,
-            'company' => $registration->company
-        );
-    }
+foreach ($reg as $k => $registration) {
+	$reg[$k]->guests = json_decode ($registration->attendees);
 }
+
+$event->registrations = $reg;
 
 $page->title = sprintf (
     '%s: %s (%s)',

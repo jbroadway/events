@@ -8,12 +8,17 @@
 	<strong id="user-name">None</strong>
 	<button id="user-chooser">{"Choose"}</button>
 	<span class="notice" id="user-notice">{"Please choose a member to add."}</span>
-	<input type="hidden" name="user" id="user" value="{{user|quotes}}" />
+	<input type="hidden" name="user" id="user" value="{{user}}" />
 </p>
 
 <p>
 	{"Company (optional)"}:<br />
-	<input type="text" name="company" size="40" value="{{company|quotes}}" />
+	<input type="text" name="company" size="40" value="{{company}}" />
+</p>
+
+<p>
+	{"Notes (optional)"}:<br />
+	<input type="text" name="notes" size="60" value="{{notes}}" />
 </p>
 
 <p>

@@ -1,0 +1,35 @@
+<div class="form">
+<form method="post" id="{{_form}}">
+
+<p style="margin-bottom: 0"><b>{"Attendees"}:</b></p>
+<ul>
+	{% foreach guests as guest %}
+		<li>{{guest}}</li>
+	{% end %}
+</ul>
+
+<p>
+	<b>{"Company"}:</b>
+	{{company}}
+</p>
+
+<p>
+	<b>{"Status"}:</b><br />
+	<label><input type="radio" name="status" value="-1" {% if status == -1 %}checked{% end %}> {"Cancelled"}</label><br />
+	<label><input type="radio" name="status" value="1" {% if status == 1 %}checked{% end %}> {"Completed"}</label><br />
+	<label><input type="radio" name="status" value="2" {% if status == 2 %}checked{% end %}> {"Attended"}</label><br />
+</p>
+
+<p>
+	{"Notes"}:<br />
+	<input type="text" name="notes" size="60" value="{{notes}}" />
+</p>
+
+<p>
+	<button>{"Update Registration"}</button>
+	&nbsp;
+	<a href="/events/guests?id={{$_GET.id}}">{"Cancel"}</a>
+</p>
+
+</form>
+</div>

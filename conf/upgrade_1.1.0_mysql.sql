@@ -1,0 +1,1 @@
+alter table #prefix#event_registration add column notes char(255) not null default '';

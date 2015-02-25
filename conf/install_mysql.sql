@@ -32,6 +32,7 @@ create table #prefix#event_registration (
 	num_attendees int not null,
 	attendees text not null,
 	company char(72) not null,
+	notes char(255) not null default '',
 	index (event_id, num_attendees, status, expires),
 	index (status, expires),
 	index (event_id),

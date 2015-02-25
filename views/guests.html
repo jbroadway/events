@@ -9,13 +9,21 @@
 <p>
 <table width="100%">
 	<tr>
-		<th width="50%">{"Name"}</th>
-		<th width="50%">{"Company"}</th>
+		<th width="25%">{"Company"}</th>
+		<th width="25%">{"Attendees"}</th>
+		<th width="15%">{"Status"}</th>
+		<th width="25%">{"Notes"}</th>
+		<th width="10%">&nbsp;</th>
 	</tr>
-{% foreach guests as guest %}
+{% foreach registrations as reg %}
 	<tr>
-		<td>{{guest->name}}</td>
-		<td>{{guest->company}}</td>
+		<td>{{reg->company}}</td>
+		<td>{% foreach reg->guests as guest %}{{guest}}<br />{% end %}</td>
+		<td>{{reg->status|events\Filter::status}}</td>
+		<td>{{reg->notes}}</td>
+		<td style="text-align: right">
+			<a href="/events/guests/edit?id={{id}}&registration={{reg->id}}">{"Update"}</a>
+		</td>
 	</tr>
 {% end %}
 </table>

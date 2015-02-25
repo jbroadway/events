@@ -2,7 +2,7 @@
     "type":         "app",
     "folder":       "events",
     "name":         "Events",
-    "version":      "1.0.5",
+    "version":      "1.1.0",
     "website":      "http://www.elefantcms.com/",
     "repository":   "git://github.com/jbroadway/events.git",
     "author": {
