@@ -9,6 +9,11 @@ $(function () {
 });
 </script>
 
+{% if count($data->events) === 0 %}
+<p>{"We have no upcoming events at this time. Please check back soon."}</p>
+<p><a href="/events/calendar">{"You can explore our past events here on our calendar."}</a></p>
+{% else %}
+
 <div class="events-header e-row-variable">
 	<div class="e-col-50 e-no-padding">
 		<a href="/events/calendar{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"View Calendar"}</a>
@@ -54,3 +59,5 @@ $(function () {
 	</div>
 {% end %}
 </div>
+
+{% end %}
