@@ -81,6 +81,7 @@ if ($e->price > 0 && $r !== false && isset ($this->params[1]) && $this->params[1
 
 					Mailer::send (array (
 						'to' => $to,
+						'bcc' => array (conf ('General', 'email_from')),
 						'subject' => 'Event registration notification: ' . $e->title,
 						'text' => $tpl->render ('events/email/notification', $r)
 					));
