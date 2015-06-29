@@ -67,7 +67,7 @@
 						{"Register"} - 
 						{% if price > 0 %}
 							{% if discount_price != $data->price %}
-								<strike>${{price|number_format (%s, 2)}}</strike> ${{discount_price|number_format (%s, 2)}}/{"guest"} ({{discount}}% off)
+								<strike>${{price|number_format (%s, 2)}}</strike> ${{discount_price|number_format (%s, 2)}}/{"guest"} ({{discount}}% {"off"})
 							{% else %}
 								${{price|number_format (%s, 2)}}/{"guest"}
 							{% end %}
