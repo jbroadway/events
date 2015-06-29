@@ -62,9 +62,31 @@
 	{% if available > 0 %}
 		{% if remaining > 0 %}
 			{% if User::require_login () %}
-				<p class="event-registration-link"><a href="/events/register/{{id}}" id="event-registration-link">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
+				<p class="event-registration-link">
+					<a href="/events/register/{{id}}" id="event-registration-link">
+						{"Register"} - 
+						{% if price > 0 %}
+							{% if discount_price != $data->price %}
+								<strike>${{price|number_format (%s, 2)}}</strike> ${{discount_price|number_format (%s, 2)}}/{"guest"} ({{discount}}% off)
+							{% else %}
+								${{price|number_format (%s, 2)}}/{"guest"}
+							{% end %}
+						{% else %}
+							{"Free!"}
+						{% end %}
+					</a>
+				</p>
 			{% else %}
-				<p class="event-registration-link"><a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">{"Register"} - {% if price > 0 %}${{price|number_format (%s, 2)}}/{"guest"}{% else %}{"Free!"}{% end %}</a></p>
+				<p class="event-registration-link">
+					<a href="#" id="event-registration-link" onclick="return events_toggle_registration (this)">
+						{"Register"} - 
+						{% if price > 0 %}
+							${{price|number_format (%s, 2)}}/{"guest"}
+						{% else %}
+							{"Free!"}
+						{% end %}
+					</a>
+				</p>
 			{% end %}
 		{% else %}
 			<p class="event-sold-out"><strong>{"SOLD OUT"}</strong></p>

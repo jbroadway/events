@@ -1,0 +1,25 @@
+{{user->name}} ({{user->email}}){% if user->company != '' %} from {{user->company}}{% end %} has requested to be invoiced for the following event registration:
+
+Event name:  {{event->title}} 
+Event date:  {{ event->start_date|events\Filter::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|events\Filter::date|strip_tags }}{% end %} 
+Event link:  http://{{$_SERVER.HTTP_HOST}}/events/{{event->id}}/{{event->title|URLify::filter}} 
+Member link: http://{{$_SERVER.HTTP_HOST}}/user/details?id={{user->id}} 
+
+{{num_attendees}} Guests:
+
+{% foreach attendees as attendee %}
+  * {{ attendee }} 
+{% end %}
+
+{% if company != '' %}
+Company: {{ company }} 
+{% end %}
+
+Fee per guest: ${{ event->price|number_format (%s, 2) }} 
+Discount:      {% if event->discount == 0 %}None{% else %}{{event->discount}}%{% end %} 
+Discount fee:  ${{ event->discount_price|number_format (%s, 2) }} 
+Guests:        {{ num_attendees }} 
+Total:         ${{ subtotal|number_format (%s, 2) }} 
+
+Sincerely,
+{{conf ('General', 'site_name')}} 

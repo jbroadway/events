@@ -111,4 +111,15 @@ class Event extends Model {
 			->order ('e.title', 'asc')
 			->fetch_orig ();
 	}
+	
+	/**
+	 * Get the event's discount price based on the specified discount
+	 * value, which is an integer.
+	 */
+	public function discount_price ($discount = 0) {
+		if ($discount > 0) {
+			return $this->price - ($this->price * ($discount / 100));
+		}
+		return $this->price;
+	}
 }

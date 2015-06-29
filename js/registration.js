@@ -192,7 +192,11 @@ var event_registration = (function ($) {
 	};
 
 	self.open_payment_form = function (res) {
-		window.location.href = '/events/register/' + self.opts.event_id + '/checkout';
+		if ($('#invoice').is (':checked')) {
+			window.location.href = '/events/register/' + self.opts.event_id + '/invoice';
+		} else {
+			window.location.href = '/events/register/' + self.opts.event_id + '/checkout';
+		}
 	};
 	
 	self.complete_registration = function (res) {

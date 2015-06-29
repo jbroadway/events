@@ -19,9 +19,15 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
     $page->layout = $appconf['Events']['event_layout'];
     $this->run ('admin/util/minimal-grid');
 	$page->add_style ('/apps/events/css/events.css');
+	
+	$discount = events\App::discount ();
+	$allow_invoice = events\App::allow_invoice ();
 
     $e->details = $tpl->run_includes ($e->details);
     $e->remaining = $e->available ();
+    $e->discount = $discount;
+    $e->discount_price = $e->discount_price ($discount);
+    $e->allow_invoice = $allow_invoice;
     if ($e->end_date === '' || $e->end_date === '0000-00-00' || $e->end_date === $e->start_date) {
         $e->end_date = false;
     }
