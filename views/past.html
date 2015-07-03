@@ -24,7 +24,7 @@ $(function () {
 			<option value="/events">{"All Categories"}</option>
 			{% foreach categories as _category, _name %}
 			<option
-				value="/events/category/{{_category}}/{{_name|URLify::filter}}"
+				value="/events/past/category/{{_category}}/{{_name|URLify::filter}}"
 				{% if _category == $data->category %}selected{% end %}
 			>{{_name}}</option>
 			{% end %}
