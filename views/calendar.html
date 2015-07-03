@@ -45,7 +45,9 @@ $(function () {
 
 <div class="events-header e-row-variable">
 	<div class="e-col-50 e-no-padding">
-		<a href="/events{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"View List"}</a>
+		<a href="/events{% if category %}/category/{{category}}/{{categories[$data->category]|URLify::filter}}{% end %}">{"Upcoming Events"}</a>
+		&nbsp;|&nbsp;
+		<a href="/events/past">{"Past Events"}</a>
 		{% if User::require_acl ('admin', 'admin/add', 'events') %}
 			&nbsp;|&nbsp;
 			<a href="/events/add">{"Add Event"}</a>

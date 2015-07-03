@@ -51,6 +51,13 @@ class Filter
         return self::mon (gmdate ('M', $d)) . ' ' . gmdate ('j', $d);
     }
 
+    public static function shortdateyear($d)
+    {
+        $d = strtotime ($d);
+
+        return self::mon (gmdate ('M', $d)) . ' ' . gmdate ('j, Y', $d);
+    }
+
     public static function shortdaydate($d)
     {
         $d = strtotime ($d);
