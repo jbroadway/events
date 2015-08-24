@@ -18,7 +18,7 @@ $form->data = array (
 	'id' => $_GET['id']
 );
 
-echo $form->handle (function ($form) use ($page, $list) {
+echo $form->handle (function ($form) use ($page, $event) {
 	$members = events\Registration::query ('distinct u.id, u.name, u.email')
 		->from ('#prefix#event_registration r, #prefix#user u')
 		->where ('r.event_id', $_GET['id'])
