@@ -126,4 +126,19 @@ class Registration extends \Model {
 
         return $r;
     }
+    
+    /**
+     * Return a list of events for the specified or the curretn user.
+     */
+    public static function my_events ($user = null) {
+    	$user = $user ? $user : \User::val ('id');
+
+		return Registration::query ('e.id, e.title, e.thumbnail')
+			->from ('#prefix#event_registration r, #prefix#event e')
+			->where ('r.event_id = e.id')
+			->where ('r.user_id', $user)
+			->where ('r.status > 0')
+			->order ('r.ts', 'desc')
+			->fetch_orig ();
+	}
 }
