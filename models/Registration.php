@@ -133,7 +133,7 @@ class Registration extends \Model {
     public static function my_events ($user = null) {
     	$user = $user ? $user : \User::val ('id');
 
-		return Registration::query ('e.id, e.title, e.thumbnail')
+		return Registration::query ('distinct e.id, e.title, e.thumbnail')
 			->from ('#prefix#event_registration r, #prefix#event e')
 			->where ('r.event_id = e.id')
 			->where ('r.user_id', $user)
