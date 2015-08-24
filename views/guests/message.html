@@ -1,0 +1,23 @@
+<div class="form">
+<form method="post" id="{{_form}}">
+
+<p class="notice" id="email-notice">{"Message failed to send. Please save your message and try again later."}</p>
+
+<p>
+	{"Subject"}:<br />
+	<input type="text" name="subject" value="{{subject}}" size="50" />
+	<span class="notice" id="subject-notice">{"Please enter an email subject."}</span>
+</p>
+
+<p>
+	{"Message"}:<span class="notice" id="body-notice"> {"Please enter a message body."}</span><br />
+	<textarea name="body" cols="80" rows="12">{{body}}</textarea>
+</p>
+
+<p>
+	<input type="submit" value="{"Send message"}" />
+	&nbsp;
+	<a href="/events/guests?id={{id}}" onclick="return confirm ('{"Are you sure you want to cancel and lose any changes?"}')">{"Cancel"}</a>
+
+</form>
+</div>
