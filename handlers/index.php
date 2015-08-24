@@ -32,6 +32,41 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
         $e->end_date = false;
     }
     $e->has_passed = ($e->start_date . ' ' . $e->starts) < gmdate ('Y-m-d H:i:s');
+
+	// add opengraph/twitter card meta tags
+	require_once ('apps/blog/lib/Filters.php');
+	$url = ($this->is_https () ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/events/' . $e->id . '/' . URLify::filter ($e->title);
+	$desc = blog_filter_truncate (strip_tags ($e->details), 300);
+
+	$page->add_meta ('og:type', 'article', 'property');
+	$page->add_meta ('og:site_name', conf ('General', 'site_name'), 'property');
+	$page->add_meta ('og:title', $e->title, 'property');
+	$page->add_meta ('og:description', $desc, 'property');
+	$page->add_meta ('og:url', $url, 'property');
+
+	if ($e->thumbnail !== '') {
+		$page->add_meta (
+			'og:image',
+			($this->is_https () ? 'https' : 'http') . '://'. $_SERVER['HTTP_HOST'] . $e->thumbnail,
+			'property'
+		);
+	}
+
+	$page->add_meta ('twitter:card', 'summary_large_image');
+	$twitter_id = Appconf::user ('Twitter', 'twitter_id');
+	if (is_string ($twitter_id) && $twitter_id !== '') {
+		$page->add_meta ('twitter:site', '@' . $twitter_id);
+	}
+	$page->add_meta ('twitter:title', $e->title);
+	$page->add_meta ('twitter:description', $desc);
+
+	if ($e->thumbnail !== '') {
+		$page->add_meta (
+			'twitter:image',
+			($this->is_https () ? 'https' : 'http') . '://'. $_SERVER['HTTP_HOST'] . $e->thumbnail
+		);
+	}
+
     echo $tpl->render ('events/event', $e->orig ());
 } else {
 	if (! $this->internal) {
