@@ -11,6 +11,7 @@
 	<tr>
 		<th width="25%">{"Company"}</th>
 		<th width="25%">{"Attendees"}</th>
+		<th width="20%">{"Registered by"}</th>
 		<th width="15%">{"Status"}</th>
 		<th width="25%">{"Notes"}</th>
 		<th width="10%">&nbsp;</th>
@@ -19,6 +20,7 @@
 	<tr>
 		<td>{{reg->company}}</td>
 		<td>{% foreach reg->guests as guest %}{{guest}}<br />{% end %}</td>
+		<td><a href="/user/details?id={{reg->user_id}}">{{reg->user_id|User::field (%s, 'name')}}</a></td>
 		<td>{{reg->status|events\Filter::status}}</td>
 		<td>{{reg->notes}}</td>
 		<td style="text-align: right">
