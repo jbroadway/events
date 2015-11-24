@@ -53,7 +53,7 @@ class Event extends Model {
         return DB::pairs (
             'select event_id, sum(num_attendees) from #prefix#event_registration
 			where event_id in(' . join (', ', $ids) . ')
-			and status = 1
+			and status > 0
 			group by event_id'
         );
     }
