@@ -105,8 +105,10 @@
 		{! user/login?redirect=/events/register/[id] !}
 	</div>
 	<div style="display: inline-block; width: 45%; vertical-align: top">
-		<h3>{"Create a new account"}</h3>
-		{! user/signup?redirect=/events/register/[id] !}
+		{% if Appconf::user ('Custom Handlers', 'user/signup') %}
+			<h3>{"Create a new account"}</h3>
+			{! user/signup?redirect=/events/register/[id] !}
+		{% end %}
 	</div>
 </div>
 {% end %}
