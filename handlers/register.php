@@ -110,7 +110,7 @@ if ($e->price > 0 && $r !== false && isset ($this->params[1])) {
 						$r->attendees = json_decode ($r->attendees);
 						$r->event = $e->orig ();
 						$r->user = User::current ()->orig ();
-						$r->subtotal = $e->price * $r->num_attendees;
+						$r->subtotal = $e->discount_price * $r->num_attendees;
 
 						Mailer::send (array (
 							'to' => array (User::val ('email'), User::val ('name')),

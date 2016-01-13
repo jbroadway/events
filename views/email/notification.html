@@ -16,7 +16,7 @@ Company: {{ company }}
 
 Order number:  {{ payment_id }} 
 Placed:        {{ ts|I18n::date_time|strip_tags }} 
-Fee per guest: ${{ event->price|number_format (%s, 2) }} 
+Fee per guest: ${{ event->discount_price|number_format (%s, 2) }} 
 Guests:        {{ num_attendees }} 
 Total:         ${{ subtotal|number_format (%s, 2) }} 
 {% end %}
