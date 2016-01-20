@@ -5,7 +5,8 @@ $page->layout = 'admin';
 $this->require_acl ('admin', 'events');
 
 $limit = 20;
-$_GET['offset'] = (isset ($_GET['offset'])) ? $_GET['offset'] : 0;
+$num = isset ($_GET['offset']) ? $_GET['offset'] : 1;
+$offset = ($num - 1) * $limit;
 $c = isset ($_GET['c']) ? $_GET['c'] : '';
 $q = isset ($_GET['q']) ? $_GET['q'] : '';
 $q_fields = array ('title', 'details', 'venue', 'address', 'city', 'contact', 'email');
@@ -26,7 +27,7 @@ $events = Event::query ('id, title, start_date, end_date, starts, ends, category
 		}
 	})
     ->order ('start_date desc')
-    ->fetch_orig ($limit, $_GET['offset']);
+    ->fetch_orig ($limit, $offset);
 
 $count = Event::query ()
 	->where_search ($q, $q_fields, $q_exact)
@@ -59,7 +60,7 @@ echo $tpl->render ('events/admin', array (
     'events' => $events,
     'limit' => $limit,
     'total' => $count,
-    'offset' => $_GET['offset'],
+    'offset' => $offset,
     'count' => count ($events),
 	'url' => $url,
 	'q' => $q,
