@@ -5,7 +5,12 @@
 
 <ul>
 {% foreach events as event %}
-	<li><a href="/events/{{event->id}}/{{event->title|URLify::filter}}">{{event->title}}</a></li>
+	<li>
+		<b>{{event->start_date|I18n::date}} <a href="/events/{{event->id}}/{{event->title|URLify::filter}}">{{event->title}}</a></b><br />
+		{"Status"}: {{event->status|events\Filter::status}}<br />
+		{"Attendees"}: {{event->num_attendees}}<br />
+		{"Notes"}: {{event->notes}}
+	</li>
 {% end %}
 </ul>
 {% end %}
