@@ -42,7 +42,7 @@
 		<th width="25%">{"Title"}</th>
 		<th width="20%">{"Date"}</th>
 		<th width="15%">{"Time"}</th>
-		<th width="15%">
+		<th width="14%">
 			<select name="c" id="search-category">
 				<option value="">{"Category"}</option>
 				{% foreach categories as _cat, _name %}
@@ -52,8 +52,8 @@
 				{% end %}
 			</select>
 		</th>
-		<th width="10%" style="text-align: right">{"Guests"}</th>
-		<th width="15%">&nbsp;</th>
+		<th width="9%" style="text-align: right">{"Guests"}</th>
+		<th width="17%">&nbsp;</th>
 	</tr>
 {% foreach events %}
 	<tr>
@@ -69,6 +69,7 @@
 			{% end %}
 		</td>
 		<td style="text-align: right">
+			<a href="/events/duplicate?id={{ loop_value->id }}">{"Duplicate"}</a> |
 			{% if loop_value->locked %}
 			{"Editing Locked"}
 			{% else %}
