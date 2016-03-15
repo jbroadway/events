@@ -15,7 +15,7 @@ $event = $event->orig ();
 
 $reg = events\Registration::query ()
     ->where ('event_id', $event->id)
-    ->where ('status', 1)
+    ->where ('status >= ?', 1)
     ->fetch_orig ();
 
 $page->layout = false;
