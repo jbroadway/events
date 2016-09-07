@@ -31,7 +31,7 @@ $event->registrations = $reg;
 $page->title = sprintf (
     '%s: %s (%s)',
     __ ('Guests'),
-    $event->title,
+    Template::sanitize ($event->title),
     events\Filter::date ($event->start_date)
 );
 

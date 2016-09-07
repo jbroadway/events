@@ -7,7 +7,7 @@ $event = new Event ($_GET['id']);
 $page->title = sprintf (
     '%s: %s (%s)',
     __ ('Message Registrants'),
-    $event->title,
+    Template::sanitize ($event->title),
     events\Filter::date ($event->start_date)
 );
 $page->layout = 'admin';

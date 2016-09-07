@@ -15,7 +15,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
     }
 
     $page->id = 'events';
-    $page->title = $e->title;
+    $page->title = Template::sanitize ($e->title);
     $page->layout = $appconf['Events']['event_layout'];
     $this->run ('admin/util/minimal-grid');
 	$page->add_style ('/apps/events/css/events.css');
