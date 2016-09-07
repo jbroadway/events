@@ -60,7 +60,7 @@ if ($f->submit ()) {
 		->fetch_assoc ('id', 'name');
 
 	$e = $f->merge_values ($e);
-	$page->title = 'Edit Event: ' . $e->title;
+	$page->title = 'Edit Event: ' . Template::sanitize ($e->title);
 	$this->run ('admin/util/wysiwyg');
 	echo $tpl->render ('events/edit/head', $e);
 	echo $tpl->render ('events/edit', $e);
