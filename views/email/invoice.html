@@ -2,8 +2,8 @@
 
 Event name:  {{event->title}} 
 Event date:  {{ event->start_date|events\Filter::date|strip_tags }}{% if event->end_date %} - {{ event->end_date|events\Filter::date|strip_tags }}{% end %} 
-Event link:  http://{{$_SERVER.HTTP_HOST}}/events/{{event->id}}/{{event->title|URLify::filter}} 
-Member link: http://{{$_SERVER.HTTP_HOST}}/user/details?id={{user->id}} 
+Event link:  http://{{ Appconf::admin ('Site Settings', 'site_domain') }}/events/{{event->id}}/{{event->title|URLify::filter}} 
+Member link: http://{{ Appconf::admin ('Site Settings', 'site_domain') }}/user/details?id={{user->id}} 
 
 {{num_attendees}} Guests:
 
