@@ -22,7 +22,7 @@
 	<tr>
 		<td>{{reg->company}}</td>
 		<td>{% foreach reg->guests as guest %}{{guest}}<br />{% end %}</td>
-		<td><a href="/user/details?id={{reg->user_id}}">{{reg->user_id|User::field (%s, 'name')}}</a></td>
+		<td><a href="/user/details?id={{reg->user_id}}">{{reg->user_id|User::field (%s, 'name')|Template::sanitize}}</a></td>
 		<td>{{reg->status|events\Filter::status}}</td>
 		<td>{{reg->notes}}</td>
 		<td style="text-align: right">
