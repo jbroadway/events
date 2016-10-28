@@ -46,7 +46,7 @@ handler = events/admin
 name = Events
 install = events/install
 upgrade = events/upgrade
-version = 1.1.0-stable
+version = 1.1.1-stable
 sitemap = "Event::sitemap"
 search = "Event::search"
 
