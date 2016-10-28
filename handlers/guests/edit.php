@@ -26,6 +26,7 @@ $form->data = $reg->orig ();
 $form->data->guests = json_decode ($reg->attendees);
 
 echo $form->handle (function ($form) use ($event, $page, $tpl, $reg) {
+	$reg->company = $_POST['company'];
 	$reg->status = $_POST['status'];
 	$reg->notes = $_POST['notes'];
 	$reg->put ();
