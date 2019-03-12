@@ -47,7 +47,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 	if ($e->thumbnail !== '') {
 		$page->add_meta (
 			'og:image',
-			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . $e->thumbnail,
+			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . str_replace (' ', '%20', $e->thumbnail),
 			'property'
 		);
 	}
@@ -63,7 +63,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 	if ($e->thumbnail !== '') {
 		$page->add_meta (
 			'twitter:image',
-			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . $e->thumbnail
+			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . str_replace (' ', '%20', $e->thumbnail)
 		);
 	}
 
