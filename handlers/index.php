@@ -2,7 +2,7 @@
 
 $page->add_style (sprintf (
     '<link rel="alternate" type="application/rss+xml" href="http://%s/events/rss" />',
-    Appconf::admin ('Site Settings', 'site_domain')
+    conf ('General', 'site_domain')
 ));
 
 if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
@@ -35,7 +35,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 
 	// add opengraph/twitter card meta tags
 	require_once ('apps/blog/lib/Filters.php');
-	$url = ($this->is_https () ? 'https' : 'http') . '://' . Appconf::admin ('Site Settings', 'site_domain') . '/events/' . $e->id . '/' . URLify::filter ($e->title);
+	$url = ($this->is_https () ? 'https' : 'http') . '://' . conf ('General', 'site_domain') . '/events/' . $e->id . '/' . URLify::filter ($e->title);
 	$desc = blog_filter_truncate (strip_tags ($e->details), 300);
 
 	$page->add_meta ('og:type', 'article', 'property');
@@ -47,7 +47,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 	if ($e->thumbnail !== '') {
 		$page->add_meta (
 			'og:image',
-			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . str_replace (' ', '%20', $e->thumbnail),
+			($this->is_https () ? 'https' : 'http') . '://'. conf ('General', 'site_domain') . str_replace (' ', '%20', $e->thumbnail),
 			'property'
 		);
 	}
@@ -63,7 +63,7 @@ if (count ($this->params) > 0 && is_numeric ($this->params[0])) {
 	if ($e->thumbnail !== '') {
 		$page->add_meta (
 			'twitter:image',
-			($this->is_https () ? 'https' : 'http') . '://'. Appconf::admin ('Site Settings', 'site_domain') . str_replace (' ', '%20', $e->thumbnail)
+			($this->is_https () ? 'https' : 'http') . '://'. conf ('General', 'site_domain') . str_replace (' ', '%20', $e->thumbnail)
 		);
 	}
 

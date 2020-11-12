@@ -2,7 +2,7 @@
 
 $page->add_style (sprintf (
     '<link rel="alternate" type="application/rss+xml" href="http://%s/events/rss" />',
-    Appconf::admin ('Site Settings', 'site_domain')
+    conf ('General', 'site_domain')
 ));
 
 if (! $this->internal) {
