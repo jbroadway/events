@@ -54,8 +54,6 @@ class Registration extends \Model {
             gmdate ('Y-m-d H:i:s')
         );
         if (! $res) {
-            $this->error = \DB::error ();
-
             return false;
         }
 
